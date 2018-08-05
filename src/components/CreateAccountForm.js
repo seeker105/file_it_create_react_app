@@ -10,16 +10,11 @@ export default class CreateAccountForm extends React.Component {
     const password = document.getElementById('create_form_password_field').value;
     const firstName = document.getElementById('create_form_first_name_field').value;
     const lastName = document.getElementById('create_form_last_name_field').value;
-    // let displayName;
-    // if (firstName && lastName) {
-    //   displayName = firstName + ' ' + lastName;
-    // }
     localStorage.setItem('firstName', firstName);
     localStorage.setItem('lastName', lastName);
     localStorage.setItem('email', email);
 
 
-    // let errorCode, errorMessage;
     if (!firstName || !lastName) {
       alert("Name is required")
     } else {
@@ -32,18 +27,6 @@ export default class CreateAccountForm extends React.Component {
           alert(errorMessage);
         }
       })
-      // .then(() => {
-      //   if (errorCode === undefined && errorMessage === undefined) {
-      //     const user = firebase.auth().currentUser;
-      //     if (displayName) {
-      //       user.updateProfile({
-      //         displayName
-      //       }).catch(() => {
-      //         alert('There was a problem saving your profile. Please got to the Profile Page and check your information.')
-      //       })
-      //     }
-      //   }
-      // });
     }
   }
 

@@ -11,7 +11,6 @@ export default class SignInForm extends React.Component {
 
     let errorCode, errorMessage;
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-      // Handle Errors here.
       errorCode = error.code;
       errorMessage = error.message;
       if (errorCode === 'auth/wrong-password') {
