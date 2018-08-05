@@ -22,7 +22,7 @@ class EditProfilePage extends React.Component {
         displayName: firstName + ' ' + lastName
       }).then(() => {
         store.dispatch(storeUserData(firstName, lastName, user.email));
-        history.push('/dashboard');
+        history.push('/profile-page');
       }).catch(() => {
         alert("Error. Data was not saved. Try again.")
       })
