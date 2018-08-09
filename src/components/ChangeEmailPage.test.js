@@ -3,7 +3,7 @@ import ChangeEmailPage from './ChangeEmailPage';
 import {MemoryRouter} from 'react-router';
 import {mount} from 'enzyme';
 
-test('should display email label and text field', () => {
+test('should display page layout', () => {
   const initialEntries = ["/change-email-page"];
   const initialIndex = 0;
   const wrapper = mount(

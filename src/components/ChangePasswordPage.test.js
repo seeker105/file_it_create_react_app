@@ -3,7 +3,7 @@ import ChangePasswordPage from './ChangePasswordPage';
 import {MemoryRouter} from 'react-router';
 import {mount} from 'enzyme';
 
-test('should display email label and text field', () => {
+test('should display page layout', () => {
   const initialEntries = ["/change-password-page"];
   const initialIndex = 0;
   const wrapper = mount(
