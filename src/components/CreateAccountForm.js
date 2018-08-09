@@ -11,9 +11,6 @@ export default class CreateAccountForm extends React.Component {
     };
   }
 
-
-
-
   onSubmit = (e) => {
     e.preventDefault();
     const email = document.getElementById('create_form_email_field').value;

@@ -8,6 +8,14 @@ import {storeUserData} from '../actions/profile';
 
 
 class EditProfilePage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      error: ''
+    };
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
 
@@ -16,7 +24,7 @@ class EditProfilePage extends React.Component {
     const user = firebase.auth().currentUser;
 
     if (!firstName || !lastName) {
-      alert("First and last names are both required.");
+        this.setState(() => ({error: "First and last names are both required."}))
     } else {
       user.updateProfile({
         displayName: firstName + ' ' + lastName
@@ -34,6 +42,7 @@ class EditProfilePage extends React.Component {
       <div>
         <Header />
         <form onSubmit={this.onSubmit}>
+          {this.state.error && <p className="form-error">{this.state.error}</p>}
           <label>First Name</label>
           <input type="text" placeholder="First Name" id="edit-profile-form-first-name-field" defaultValue={store.getState().firstName} />
           <label>Last Name</label>
