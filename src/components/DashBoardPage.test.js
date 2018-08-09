@@ -1,17 +1,18 @@
 import React from 'react';
-import CreateAccountForm from './CreateAccountForm';
+import DashboardPage from './DashboardPage';
 import {MemoryRouter} from 'react-router';
 import {mount} from 'enzyme';
 
-test('should display email label and text field', () => {
-  const initialEntries = ["/create-account"];
+test('should show page layout', () => {
+  const initialEntries = ["/dashboard"];
   const initialIndex = 0;
   const wrapper = mount(
     <MemoryRouter
       initialIndex={initialIndex}
       initialEntries={initialEntries}>
-        <CreateAccountForm/>
+        <DashboardPage/>
     </MemoryRouter>
   );
-  expect(wrapper.find('input').length).toBe(4)
+  expect(wrapper.find('h1').length).toBe(1)
+  expect(wrapper.find('h1').text()).toBe("DashboardPage")
 });
