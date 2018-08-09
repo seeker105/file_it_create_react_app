@@ -31,8 +31,7 @@ test('should display create account and sign in links', () => {
 //       <LandingPage />
 //     </MemoryRouter>, div
 //   );
-//   // This is the way they tested the react-router package. But it doesn't work here for
-//   // some reason.
+
 //   console.log(div.innerHTML);
 //   Simulate.click(div.querySelector('#landing-page-link-to-create-account-form'), leftClickEvent);
 //   console.log(div.innerHTML);
