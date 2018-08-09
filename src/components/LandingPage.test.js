@@ -2,13 +2,15 @@ import React from 'react';
 import LandingPage from './LandingPage';
 import {BrowserRouter, Router, MemoryRouter} from 'react-router';
 import {shallow, mount} from 'enzyme';
-import {Link} from 'react-router-dom';
+import {render} from 'react-dom';
+import {Link, Route} from 'react-router-dom';
 import {history} from '../App';
 
-
-test("should display create account and sign in links", () => {
-  const wrapper = shallow(<LandingPage />);
-  // console.log(wrapper.find('#landing-page-link-to-create-account-form').html());
-  wrapper.find('Link').at(0).simulate('click');
-  // expect(history.location.pathname).toBe('/create-account');
+test('should display create account and sign in links', () => {
+  const wrapper = mount(<MemoryRouter initialEntries={['/']} initialIndex={0}>
+    <LandingPage />
+  </MemoryRouter>);
+  console.log(wrapper.find('a').at(0).text());
+  expect(wrapper.find('a').at(0).text()).toBe("Create Account");
+  expect(wrapper.find('a').at(1).text()).toBe("Sign In");
 })
