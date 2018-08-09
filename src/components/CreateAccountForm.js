@@ -3,6 +3,13 @@ import {firebase} from '../firebase/firebase';
 import {Link} from 'react-router-dom';
 
 export default class CreateAccountForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      error: ''
+    };
+  }
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -14,17 +21,16 @@ export default class CreateAccountForm extends React.Component {
     localStorage.setItem('lastName', lastName);
     localStorage.setItem('email', email);
 
-
     if (!firstName || !lastName) {
-      alert("Name is required")
+      this.setState(() => ({error: "Name is required"}))
     } else {
-      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         if (errorCode === 'auth/weak-password') {
-          alert('The password is too weak.', errorMessage);
+          this.setState(() => ({error: "The password is too weak."}))
         } else {
-          alert(errorMessage);
+          this.setState(() => ({error: errorMessage}))
         }
       })
     }
@@ -34,6 +40,7 @@ export default class CreateAccountForm extends React.Component {
     return (
       <div>
         <form onSubmit={this.onSubmit} >
+          {this.state.error && <p className="form-error">{this.state.error}</p>}
           <input type="text" placeholder="First Name" id="create_form_first_name_field" />
           <input type="text" placeholder="Last Name" id="create_form_last_name_field" />
           <input type="text" placeholder="Email" id="create_form_email_field"/>

@@ -6,6 +6,13 @@ import {history} from '../App';
 import store from '../store/configureStore';
 
 export default class ChangeEmailPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: ''
+    }
+  }
+
   validateEmail = (email) => {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
@@ -13,7 +20,6 @@ export default class ChangeEmailPage extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-
     const email = document.getElementById('change-email-form-email-field');
     const user = firebase.auth().currentUser;
 
@@ -24,7 +30,7 @@ export default class ChangeEmailPage extends React.Component {
         history.push('/sign-in-form');
       });
     } else {
-      alert("Valid Email is required");
+      this.setState(() => ({error: "Valid Email is required"}));
     }
   }
 
@@ -33,6 +39,7 @@ export default class ChangeEmailPage extends React.Component {
       <div>
         <Header />
         <form onSubmit={this.onSubmit}>
+          {this.state.error && <p className="form-error">{this.state.error}</p>}
           <label>Email</label>
           <input type="text" placeholder="Email" id="change-email-form-email-field" defaultValue={store.getState().email}/>
           <button>Submit</button>

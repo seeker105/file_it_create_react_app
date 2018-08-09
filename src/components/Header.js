@@ -14,7 +14,7 @@ export default class Header extends React.Component {
   render () {
     return (
       <div>
-        File It Header. Hello {store.getState().firstName}<br />
+        <h4>File It Header. Hello {store.getState().firstName}</h4><br />
         <Link to="/profile-page">Profile Page</Link><br />
         <Link to="/dashboard">Home</Link><br />
         <button onClick={this.onLogoutClick}>Logout</button>
