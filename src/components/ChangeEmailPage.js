@@ -4,6 +4,7 @@ import Header from './Header';
 import {firebase} from '../firebase/firebase';
 import {history} from '../App';
 import store from '../store/configureStore';
+import {storeUserCredential} from '../actions/profile';
 
 export default class ChangeEmailPage extends React.Component {
   constructor(props) {
@@ -24,11 +25,24 @@ export default class ChangeEmailPage extends React.Component {
     const user = firebase.auth().currentUser;
 
     if (this.validateEmail(email)) {
-      user.updateEmail(email).then(() => {
-        history.goBack();
-      }).catch(() => {
-        history.push('/sign-in-form');
-      });
+      user.updateEmail(email)
+        .then(() => {
+          history.goBack();
+        })
+        .catch((error) => {
+          if (error.code === 'auth/requires-recent-login') {
+            let credential = store.getState().credential;
+            user.reauthenticateAndRetrieveDataWithCredential(credential)
+              .then((credential) => {
+                store.dispatch(storeUserCredential(credential));
+                user.updateEmail(email).catch((error) => {
+                  this.setState(() => ({error: error.message}));
+                })
+              })
+          } else {
+            this.setState(() => ({error: error.message}));
+          }
+        });
     } else {
       this.setState(() => ({error: "Valid Email is required"}));
     }

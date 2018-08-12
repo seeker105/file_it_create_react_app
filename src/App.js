@@ -29,7 +29,7 @@ const logIn = (firstName, lastName, email) => {
   history.location.pathname === '/sign-in-form') {
     history.push('/dashboard')
   }
-  console.log(store.getState());
+  console.log("logged in: ", store.getState());
 }
 
 firebase.auth().onAuthStateChanged((user) => {

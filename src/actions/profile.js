@@ -7,3 +7,10 @@ export const storeUserData = (firstName, lastName, email) => {
     email
   }
 }
+
+export const storeUserCredential = (credential) => {
+  return {
+    type: 'STORE_USER_CREDENTIAL',
+    credential
+  }
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 import {firebase} from '../firebase/firebase';
 import {Link} from 'react-router-dom';
+import {storeUserCredential} from '../actions/profile';
+import store from '../store/configureStore';
 
 export default class CreateAccountForm extends React.Component {
   constructor(props) {
@@ -24,7 +26,11 @@ export default class CreateAccountForm extends React.Component {
     if (!firstName || !lastName) {
       this.setState(() => ({error: "Name is required"}))
     } else {
-      firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then((credential) => {
+        store.dispatch(storeUserCredential(credential));
+      })
+      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         if (errorCode === 'auth/weak-password') {

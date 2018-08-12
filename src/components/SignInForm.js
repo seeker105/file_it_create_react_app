@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {firebase} from '../firebase/firebase';
+import store from '../store/configureStore';
+import {storeUserCredential} from '../actions/profile';
 
 export default class SignInForm extends React.Component {
   constructor(props) {
@@ -16,7 +18,11 @@ export default class SignInForm extends React.Component {
     const email = document.getElementById('create_form_email_field').value;
     const password = document.getElementById('create_form_password_field').value;
 
-    firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((credential) => {
+      store.dispatch(storeUserCredential(credential));
+    })
+    .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       if (errorCode === 'auth/wrong-password') {
