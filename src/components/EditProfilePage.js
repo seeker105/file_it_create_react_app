@@ -28,12 +28,14 @@ class EditProfilePage extends React.Component {
     } else {
       user.updateProfile({
         displayName: firstName + ' ' + lastName
-      }).then(() => {
-        store.dispatch(storeUserData(firstName, lastName, user.email));
-        history.push('/profile-page');
-      }).catch(() => {
-        alert("Error. Data was not saved. Try again.")
       })
+        .then(() => {
+          store.dispatch(storeUserData(firstName, lastName, user.email));
+          history.push('/profile-page');
+        })
+        .catch(() => {
+          alert("Error. Data was not saved. Try again.")
+        })
     }
   }
 

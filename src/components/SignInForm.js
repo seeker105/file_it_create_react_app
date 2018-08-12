@@ -19,20 +19,12 @@ export default class SignInForm extends React.Component {
     const password = document.getElementById('create_form_password_field').value;
 
     firebase.auth().signInWithEmailAndPassword(email, password)
-    .then((credential) => {
-      store.dispatch(storeUserCredential(credential));
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      if (errorCode === 'auth/wrong-password') {
-        this.setState(() => ({error: "Wrong password."}))
-        // alert('Wrong password.');
-      } else {
+      .then((credential) => {
+        store.dispatch(storeUserCredential(credential));
+      })
+      .catch((error) => {
         this.setState(() => ({error: errorMessage}))
-        // alert(errorMessage);
-      }
-    })
+      })
   }
 
   render () {

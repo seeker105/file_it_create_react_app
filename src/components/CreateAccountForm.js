@@ -27,18 +27,12 @@ export default class CreateAccountForm extends React.Component {
       this.setState(() => ({error: "Name is required"}))
     } else {
       firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((credential) => {
-        store.dispatch(storeUserCredential(credential));
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        if (errorCode === 'auth/weak-password') {
-          this.setState(() => ({error: "The password is too weak."}))
-        } else {
+        .then((credential) => {
+          store.dispatch(storeUserCredential(credential));
+        })
+        .catch((error) => {
           this.setState(() => ({error: errorMessage}))
-        }
-      })
+        })
     }
   }
 
