@@ -26,6 +26,11 @@ const rootReducer = (state = {}, action) => {
         lastName: undefined,
         email: undefined
       };
+    case 'STORE_USER_CREDENTIAL':
+      return {
+        ...state,
+        credential: action.credential
+      }
     default:
       return state;
   }
