@@ -14,6 +14,6 @@ test('should display page layout', () => {
     </MemoryRouter>
   );
   expect(wrapper.find('label').length).toBe(1)
-  expect(wrapper.find('label').text()).toBe("Email")
+  expect(wrapper.find('label').text()).toBe("Enter new Email")
   expect(wrapper.find('input').length).toBe(1)
 });
