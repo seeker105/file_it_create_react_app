@@ -29,9 +29,14 @@ export default class CreateAccountForm extends React.Component {
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((credential) => {
           store.dispatch(storeUserCredential(credential));
+          firebase.database().ref('users/' + credential.user.uid).update({
+            firstName,
+            lastName,
+            email
+          });
         })
         .catch((error) => {
-          this.setState(() => ({error: errorMessage}))
+          this.setState(() => ({error: error.message}))
         })
     }
   }

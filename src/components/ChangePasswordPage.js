@@ -4,7 +4,7 @@ import Header from './Header';
 import {firebase} from '../firebase/firebase';
 import {history} from '../App';
 import store from '../store/configureStore';
-import {storeUserCredential} from '../actions/auth';
+import {storeUserCredential} from '../actions/profile';
 
 export default class ChangePasswordPage extends React.Component {
   constructor(props) {

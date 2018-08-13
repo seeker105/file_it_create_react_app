@@ -23,7 +23,7 @@ export default class SignInForm extends React.Component {
         store.dispatch(storeUserCredential(credential));
       })
       .catch((error) => {
-        this.setState(() => ({error: errorMessage}))
+        this.setState(() => ({error: error.message}))
       })
   }
 
