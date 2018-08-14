@@ -1,7 +1,7 @@
 import React from 'react';
 import {firebase} from '../firebase/firebase';
 import {Link} from 'react-router-dom';
-import {storeUserCredential, storeUserData} from '../actions/profile';
+import {storeUserData} from '../actions/profile';
 import store from '../store/configureStore';
 
 export default class CreateAccountForm extends React.Component {
@@ -28,7 +28,6 @@ export default class CreateAccountForm extends React.Component {
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((credential) => {
           store.dispatch(storeUserData(firstName, lastName, email))
-          // store.dispatch(storeUserCredential(credential));
           firebase.database().ref('users/' + credential.user.uid).update({
             lastName
           });
