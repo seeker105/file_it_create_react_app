@@ -1,7 +1,7 @@
 import React from 'react';
 import {firebase} from '../firebase/firebase';
 import {Link} from 'react-router-dom';
-import {storeUserCredential} from '../actions/profile';
+import {storeUserCredential, storeUserData} from '../actions/profile';
 import store from '../store/configureStore';
 
 export default class CreateAccountForm extends React.Component {
@@ -21,18 +21,16 @@ export default class CreateAccountForm extends React.Component {
     const lastName = document.getElementById('create_form_last_name_field').value;
     localStorage.setItem('firstName', firstName);
     localStorage.setItem('lastName', lastName);
-    localStorage.setItem('email', email);
 
     if (!firstName || !lastName) {
       this.setState(() => ({error: "Name is required"}))
     } else {
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((credential) => {
-          store.dispatch(storeUserCredential(credential));
+          store.dispatch(storeUserData(firstName, lastName, email))
+          // store.dispatch(storeUserCredential(credential));
           firebase.database().ref('users/' + credential.user.uid).update({
-            firstName,
-            lastName,
-            email
+            lastName
           });
         })
         .catch((error) => {
