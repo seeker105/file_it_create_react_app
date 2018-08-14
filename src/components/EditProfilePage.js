@@ -24,7 +24,7 @@ class EditProfilePage extends React.Component {
     const user = firebase.auth().currentUser;
 
     if (!firstName || !lastName) {
-        this.setState(() => ({error: "First and last names are both required."}))
+      this.setState(() => ({error: "First and last names are both required."}))
     } else {
       user.updateProfile({
         displayName: firstName
