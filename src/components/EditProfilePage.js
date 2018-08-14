@@ -51,7 +51,7 @@ class EditProfilePage extends React.Component {
           <input type="text" placeholder="Last Name" id="edit-profile-form-last-name-field" defaultValue={store.getState().lastName} />
           <button>Submit</button>
         </form>
-        <Link to="/dashboard">Cancel</Link>
+        <Link to="/profile-page">Cancel</Link>
       </div>
     )
   }

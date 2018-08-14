@@ -25,8 +25,8 @@ export default App;
 const logIn = (firstName, lastName, email) => {
   store.dispatch(loginGenerator(firstName, lastName, email));
   if (history.location.pathname === '/' ||
-  history.location.pathname === '/create-account' ||
-  history.location.pathname === '/sign-in-form') {
+      history.location.pathname === '/create-account' ||
+      history.location.pathname === '/sign-in-form') {
     history.push('/dashboard')
   }
   console.log("logged in: ", store.getState());
@@ -35,18 +35,26 @@ const logIn = (firstName, lastName, email) => {
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     let firstName, lastName;
-    const email = user.email
+    const email = user.email;
     if (user.displayName) {
-      const names = user.displayName.split(' ');
-      firstName = names[0];
-      lastName = names[names.length - 1];
-      logIn(firstName, lastName, email)
+      firstName = user.displayName;
     } else {
       firstName = localStorage.getItem('firstName');
-      lastName = localStorage.getItem('lastName');
       user.updateProfile({
-        displayName: firstName + ' ' + lastName
-      }).then(logIn(firstName, lastName, email))
+        displayName: firstName
+      })
+    }
+
+    lastName = localStorage.getItem('lastName')
+    if (!lastName) {
+      firebase.database().ref('users/' + user.uid +'/lastName')
+        .once('value')
+        .then((snapshot) => {
+          lastName = snapshot.val();
+          logIn(firstName, lastName, email);
+        });
+    } else {
+      logIn(firstName, lastName, email);
     }
   } else {
     store.dispatch(logoutGenerator());
@@ -54,3 +62,27 @@ firebase.auth().onAuthStateChanged((user) => {
     history.push('/');
   }
 })
+
+
+// firebase.auth().onAuthStateChanged((user) => {
+//   if (user) {
+//     let firstName, lastName;
+//     const email = user.email
+//     if (user.displayName) {
+//       const names = user.displayName.split(' ');
+//       firstName = names[0];
+//       lastName = names[names.length - 1];
+//       logIn(firstName, lastName, email);
+//     } else {
+//       firstName = localStorage.getItem('firstName');
+//       lastName = localStorage.getItem('lastName');
+//       user.updateProfile({
+//         displayName: firstName + ' ' + lastName
+//       }).then(logIn(firstName, lastName, email))
+//     }
+//   } else {
+//     store.dispatch(logoutGenerator());
+//     console.log(store.getState());
+//     history.push('/');
+//   }
+// })
