@@ -9,6 +9,7 @@ import ProfilePage from '../components/ProfilePage';
 import ChangePasswordPage from '../components/ChangePasswordPage';
 import ChangeEmailPage from '../components/ChangeEmailPage';
 import EditProfilePage from '../components/EditProfilePage';
+import ReauthorizationForm from '../components/ReauthorizationForm';
 
 const AppRouter = (props) => (
   <div>
@@ -22,6 +23,7 @@ const AppRouter = (props) => (
         <Route path="/change-password-page" component={ChangePasswordPage} />
         <Route path="/change-email-page" component={ChangeEmailPage} />
         <Route path="/edit-profile-page" component={EditProfilePage} />
+        <Route path="/reauthorization-form" component={ReauthorizationForm} />
       </Switch>
     </Router>
   </div>
