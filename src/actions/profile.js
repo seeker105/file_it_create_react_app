@@ -14,3 +14,10 @@ export const storeUserCredential = (credential) => {
     credential
   }
 }
+
+export const updateEmail = (email) => {
+  return {
+    type: 'UPDATE_EMAIL',
+    email
+  }
+}

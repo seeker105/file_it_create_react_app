@@ -25,18 +25,11 @@ export default class ChangePasswordPage extends React.Component {
       })
       .catch((error) => {
         if (error.code === 'auth/requires-recent-login') {
-          let credential = store.getState().credential;
-          user.reauthenticateAndRetrieveDataWithCredential(credential)
-            .then((credential) => {
-              store.dispatch(storeUserCredential(credential));
-              user.updatePassword(newPassword).catch((error) => {
-                this.setState(() => ({error: error.message}));
-              })
-            })
+          history.push('/reauthorization-form')
         } else {
           this.setState(() => ({error: error.message}));
         }
-      });
+      })
   }
 
   render () {
