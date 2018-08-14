@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {firebase} from '../firebase/firebase';
+import firebase from '../firebase/firebase';
 import store from '../store/configureStore';
 import {storeUserCredential} from '../actions/profile';
 

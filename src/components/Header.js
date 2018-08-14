@@ -1,7 +1,7 @@
 import React from 'react';
 import store from '../store/configureStore';
 import {Link} from 'react-router-dom';
-import {firebase} from '../firebase/firebase';
+import firebase from '../firebase/firebase';
 import {history} from '../App';
 
 export default class Header extends React.Component {

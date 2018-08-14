@@ -1,5 +1,5 @@
 import React from 'react';
-import {firebase} from '../firebase/firebase';
+import firebase from '../firebase/firebase';
 import {Link} from 'react-router-dom';
 import {storeUserData} from '../actions/profile';
 import store from '../store/configureStore';

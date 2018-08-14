@@ -1,6 +1,6 @@
 import React from 'react';
 import createHistory from 'history/createBrowserHistory';
-import {firebase} from './firebase/firebase';
+import firebase from './firebase/firebase';
 import {Provider} from 'react-redux';
 import store, {persistor} from './store/configureStore';
 import AppRouter from './Routers/AppRouter';
