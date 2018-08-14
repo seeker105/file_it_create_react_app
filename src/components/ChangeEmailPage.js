@@ -4,7 +4,7 @@ import Header from './Header';
 import {firebase} from '../firebase/firebase';
 import {history} from '../App';
 import store from '../store/configureStore';
-import {storeUserCredential} from '../actions/profile';
+import {storeUserCredential, updateEmail} from '../actions/profile';
 
 export default class ChangeEmailPage extends React.Component {
   constructor(props) {
@@ -20,23 +20,17 @@ export default class ChangeEmailPage extends React.Component {
     const user = firebase.auth().currentUser;
 
     user.updateEmail(email)
-    .then(() => {
-      history.goBack();
-    })
-    .catch((error) => {
-      if (error.code === 'auth/requires-recent-login') {
-        let credential = store.getState().credential;
-        user.reauthenticateAndRetrieveDataWithCredential(credential)
-          .then((credential) => {
-            store.dispatch(storeUserCredential(credential));
-            user.updateEmail(email).catch((error) => {
-              this.setState(() => ({error: error.message}));
-            })
-          })
-      } else {
-        this.setState(() => ({error: error.message}));
-      }
-    });
+      .then(() => {
+        store.dispatch(updateEmail(email));
+        history.goBack();
+      })
+      .catch((error) => {
+        if (error.code === 'auth/requires-recent-login') {
+          history.push('/reauthorization-form')
+        } else {
+          this.setState(() => ({error: error.message}));
+        }
+      })
   }
 
   render () {

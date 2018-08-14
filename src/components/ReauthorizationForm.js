@@ -1,8 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {firebase} from '../firebase/firebase';
-import store from '../store/configureStore';
-import {storeUserCredential} from '../actions/profile';
 import {history} from '../App';
 
 export default class ReauthorizationForm extends React.Component {
@@ -24,6 +22,9 @@ export default class ReauthorizationForm extends React.Component {
     user.reauthenticateAndRetrieveDataWithCredential(credential)
       .then(() => {
         history.goBack();
+      })
+      .catch((error) => {
+        this.setState(() => ({error: error.message}));
       })
   }
 

@@ -31,6 +31,11 @@ const rootReducer = (state = {}, action) => {
         ...state,
         credential: action.credential
       }
+    case 'UPDATE_EMAIL':
+        return {
+          ...state,
+          email: action.email
+        }
     default:
       return state;
   }
