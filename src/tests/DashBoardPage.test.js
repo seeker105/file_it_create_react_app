@@ -1,5 +1,5 @@
 import React from 'react';
-import DashboardPage from './DashboardPage';
+import DashboardPage from '../components/DashboardPage';
 import {MemoryRouter} from 'react-router';
 import {mount} from 'enzyme';
 

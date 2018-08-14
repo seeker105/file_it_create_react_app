@@ -1,5 +1,5 @@
 import React from 'react';
-import LandingPage from './LandingPage';
+import LandingPage from '../components/LandingPage';
 import {BrowserRouter, Router, MemoryRouter} from 'react-router';
 import {shallow, mount} from 'enzyme';
 import {render} from 'react-dom';
