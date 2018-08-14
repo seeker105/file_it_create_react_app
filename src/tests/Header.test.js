@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './Header';
+import Header from '../components/Header';
 import {MemoryRouter} from 'react-router';
 import {mount} from 'enzyme';
 import store from '../store/configureStore';
