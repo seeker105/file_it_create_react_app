@@ -16,9 +16,6 @@ export default class ProfilePage extends React.Component {
         store.dispatch(logoutGenerator());
         return user.delete();
       })
-      .then(() => {
-        firebase.auth().signOut();
-      })
       .catch(() => {
         alert("There was a problem closing your account.")
       })
