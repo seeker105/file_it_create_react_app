@@ -12,7 +12,8 @@ export default class ProfilePage extends React.Component {
         <p><label>Email</label> {store.getState().email}</p>
         <Link to="/edit-profile-page">Edit</Link><br />
         <Link to="/change-email-page">Change email</Link><br />
-        <Link to="/change-password-page">Change password</Link>
+        <Link to="/change-password-page">Change password</Link><br />
+        <Link to="/delete-account-page">Delete Account</Link>
       </div>
     )
   }
