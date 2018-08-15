@@ -16,5 +16,5 @@ test('should display page layout', () => {
   expect(wrapper.find('label').length).toBe(2);
   expect(wrapper.find('label').at(0).text()).toBe("Name");
   expect(wrapper.find('label').at(1).text()).toBe("Email");
-  expect(wrapper.find('a').length).toBe(5);
+  expect(wrapper.find('a').length).toBe(6);
 });
