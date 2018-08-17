@@ -1,6 +1,5 @@
 import * as firebase from 'firebase';
 
-
 const config = {
   apiKey: "AIzaSyDod6DA83q2ScDKUvc_icUP_U8tCwL0Ifc",
   authDomain: "fileit-2a109.firebaseapp.com",
@@ -12,4 +11,4 @@ const config = {
 
 firebase.initializeApp(config);
 
-export {firebase};
+export default firebase;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {firebase} from '../firebase/firebase';
+import firebase from '../firebase/firebase';
 import {history} from '../App';
 
 export default class ReauthorizationForm extends React.Component {
