@@ -14,15 +14,17 @@ export default class FileUploadPage extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    let contents = [];
+    const user = firebase.auth().currentUser;
 
-    const fileList = document.getElementById('file-upload-page-file-input').files;
-    console.log(fileList);
+    const file = document.getElementById('file-upload-page-file-input').files[0];
+    console.log(file.name);
+    const storage = firebase.storage();
+    const storageRef = storage.ref();
+    const filesRef = storageRef.child('files/' + user.uid + '/' + file.name);
+    let uploadTask = filesRef.put(file);
+    firebase.database().ref('users/' + user.uid + '/files').push(file.name);
 
-    // Get a reference to the storage service, which is used to create references in your storage bucket
-    var storage = firebase.storage();
-
-    // Create a storage reference from our storage service
-    var storageRef = storage.ref();
   }
 
   render () {
