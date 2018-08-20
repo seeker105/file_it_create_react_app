@@ -4,7 +4,7 @@ import Header from './Header';
 import firebase from '../firebase/firebase';
 import {history} from '../App';
 import store from '../store/configureStore';
-import {storeUserCredential, updateEmail} from '../actions/profile';
+import {updateEmail} from '../actions/profile';
 
 export default class ChangeEmailPage extends React.Component {
   constructor(props) {
