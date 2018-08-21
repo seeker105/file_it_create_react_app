@@ -16,9 +16,9 @@ export default class ChangeEmailPage extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const email = document.getElementById('change-email-form-new-email-field');
+    const email = document.getElementById('change-email-form-new-email-field').value;
     const user = firebase.auth().currentUser;
-
+    console.log(email);
     user.updateEmail(email)
       .then(() => {
         store.dispatch(updateEmail(email));

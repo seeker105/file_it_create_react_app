@@ -26,16 +26,20 @@ class EditProfilePage extends React.Component {
     if (!firstName || !lastName) {
       this.setState(() => ({error: "First and last names are both required."}))
     } else {
+      // user.updateProfile({
+      //   displayName: firstName
+      // }).catch()
+
       user.updateProfile({
         displayName: firstName
       })
         .then(() => {
-          firebase.database().ref('users/' + user.uid + '/lastName').update(lastName);
+          firebase.database().ref('users/' + user.uid + '/lastName').set(lastName);
           store.dispatch(storeUserData(firstName, lastName, user.email));
           history.push('/profile-page');
         })
-        .catch(() => {
-          alert("Error. Data was not saved. Try again.")
+        .catch((error) => {
+          alert(error.message)
         })
     }
   }
