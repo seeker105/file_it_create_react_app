@@ -17,7 +17,7 @@ export default class ReauthorizationForm extends React.Component {
     const email = document.getElementById('create_form_email_field').value;
     const password = document.getElementById('create_form_password_field').value;
 
-    const credential = firebase.auth.EmailProvider.credential(email, password);
+    const credential = firebase.auth.EmailAuthProvider.credential(email, password);
     const user = firebase.auth().currentUser;
     user.reauthenticateAndRetrieveDataWithCredential(credential)
       .then(() => {

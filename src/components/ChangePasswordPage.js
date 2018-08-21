@@ -14,7 +14,7 @@ export default class ChangePasswordPage extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const newPassword = document.getElementById("change-password-form-new-password-field");
+    const newPassword = document.getElementById("change-password-form-new-password-field").value;
     const user = firebase.auth().currentUser;
 
     user.updatePassword(newPassword)
@@ -37,7 +37,8 @@ export default class ChangePasswordPage extends React.Component {
         <form onSubmit={this.onSubmit}>
           {this.state.error && <p className="form-error">{this.state.error}</p>}
           <label>Enter new password</label>
-          <input type="text" placeholder="New Password" id="change-password-form-new-password-field"/>
+          <p><input type="text" placeholder="New Password" id="change-password-form-new-password-field"/></p>
+          <p><button>Submit</button></p>
         </form>
         <Link to="/profile-page">Cancel</Link>
       </div>
