@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Header from './Header';
 import firebase from '../firebase/firebase';
-import {history} from '../App';
+import {history} from '../index';
 
 export default class ChangePasswordPage extends React.Component {
   constructor(props) {

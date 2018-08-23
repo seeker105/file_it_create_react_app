@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Header from './Header';
 import firebase from '../firebase/firebase';
-import {history} from '../App';
+import {history} from '../index';
 import store from '../store/configureStore';
 import {updateEmail} from '../actions/profile';
 

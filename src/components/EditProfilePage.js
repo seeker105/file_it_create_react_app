@@ -3,7 +3,7 @@ import Header from './Header';
 import store from '../store/configureStore';
 import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
-import {history} from '../App';
+import {history} from '../index';
 import {storeUserData} from '../actions/profile';
 
 

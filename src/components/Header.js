@@ -2,7 +2,7 @@ import React from 'react';
 import store from '../store/configureStore';
 import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
-import {history} from '../App';
+import {history} from '../index';
 
 export default class Header extends React.Component {
   onLogoutClick = (e) => {
