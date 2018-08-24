@@ -60,6 +60,8 @@ firebase.auth().onAuthStateChanged((user) => {
       logIn(firstName, lastName, email);
     }
   } else {
+    localStorage.removeItem('lastName');
+    localStorage.removeItem('firstName');
     store.dispatch(logoutGenerator());
     console.log(store.getState());
     history.push('/');
