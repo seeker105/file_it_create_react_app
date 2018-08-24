@@ -22,10 +22,10 @@ const rootReducer = (state = {}, action) => {
       };
     case 'LOGOUT':
       return {
-        ...state,
-        firstName: undefined,
-        lastName: undefined,
-        email: undefined
+        // ...state,
+        // firstName: undefined,
+        // lastName: undefined,
+        // email: undefined
       };
     case 'STORE_USER_CREDENTIAL':
       return {
@@ -37,6 +37,11 @@ const rootReducer = (state = {}, action) => {
           ...state,
           email: action.email
         }
+    case 'SET_FILENAMES':
+      return {
+        ...state,
+        fileNames: action.fileNames
+      }
     default:
       return state;
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from '../firebase/firebase';
 import {Link} from 'react-router-dom';
 import Header from './Header';
+import {loadDashBoard} from '../actions/files';
 
 export default class FileUploadPage extends React.Component {
   constructor(props) {
@@ -14,7 +15,6 @@ export default class FileUploadPage extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    let contents = [];
     const user = firebase.auth().currentUser;
 
     const file = document.getElementById('file-upload-page-file-input').files[0];
@@ -22,9 +22,9 @@ export default class FileUploadPage extends React.Component {
     const storage = firebase.storage();
     const storageRef = storage.ref();
     const filesRef = storageRef.child('files/' + user.uid + '/' + file.name);
-    let uploadTask = filesRef.put(file);
+    filesRef.put(file);
     firebase.database().ref('users/' + user.uid + '/files').push(file.name);
-
+    loadDashBoard();
   }
 
   render () {
