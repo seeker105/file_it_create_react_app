@@ -29,38 +29,3 @@ export default class DashboardPage extends React.Component {
     )
   }
 }
-
-
-
-
-
-
-
-// constructor(props) {
-//   super(props);
-//   const user = store.getState().credential.user
-//   this.filesRef = firebase.database().ref('users/' + user.uid + '/files');
-//   this.fileNames = store.getState().fileNames
-//   this.state = {
-//     mainMessage: 'Loading...'
-//   };
-// }
-
-// componentWillMount() {
-//   this.filesRef.on('value', (snapshot) => {
-//     snapshot.forEach( (childSnapshot) => {
-//       this.fileNames.push(childSnapshot.val())
-//     })
-//   })
-// }
-//
-// componentDidMount() {
-//   this.setState(() => ({
-//     mainMessage: this.fileNames.length > 0 ? 'There are files' : 'No files yet'
-//   }))
-//   console.log("after didMount", this.state);
-// }
-//
-// componentWillUnmount() {
-//   this.filesRef.off();
-// }
