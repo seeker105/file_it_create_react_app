@@ -7,7 +7,7 @@ import {logoutGenerator} from '../actions/auth';
 
 export default class ProfilePage extends React.Component {
 
-  onMouseClick = (e) => {
+  onDeleteSelected = (e) => {
     console.log('button clicked');
 
     const user = firebase.auth().currentUser;
@@ -19,7 +19,6 @@ export default class ProfilePage extends React.Component {
       .catch(() => {
         alert("There was a problem closing your account.")
       })
-
   }
 
   render () {
@@ -27,7 +26,7 @@ export default class ProfilePage extends React.Component {
       <div>
         <Header />
         <p>Are you sure you wish to delete your account? This CANNOT be undone</p>
-        <button onClick={this.onMouseClick}>Delete Account</button>
+        <button onClick={this.onDeleteSelected}>Delete Account</button>
         <Link to="/profile-page">Get me out of here</Link>
       </div>
     )

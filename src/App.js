@@ -7,6 +7,7 @@ import AppRouter from './Routers/AppRouter';
 import {loginGenerator, logoutGenerator} from './actions/auth';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import LoadingPage from './components/LoadingPage';
+import {loadDashBoard} from './actions/files';
 
 export const history = createHistory();
 
@@ -25,9 +26,11 @@ export default App;
 const logIn = (firstName, lastName, email) => {
   store.dispatch(loginGenerator(firstName, lastName, email));
   if (history.location.pathname === '/' ||
+      history.location.pathname === '/dashboard' ||
       history.location.pathname === '/create-account' ||
       history.location.pathname === '/sign-in-form') {
-    history.push('/dashboard')
+    console.log("hits loadDashBoard");
+    loadDashBoard();
   }
   console.log("logged in: ", store.getState());
 }

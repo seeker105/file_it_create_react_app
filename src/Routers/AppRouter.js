@@ -12,6 +12,7 @@ import EditProfilePage from '../components/EditProfilePage';
 import ReauthorizationForm from '../components/ReauthorizationForm';
 import DeleteAccountPage from '../components/DeleteAccountPage';
 import FileUploadPage from '../components/FileUploadPage';
+import LoadingPage from '../components/LoadingPage';
 
 const AppRouter = (props) => (
   <div>
@@ -28,6 +29,7 @@ const AppRouter = (props) => (
         <Route path="/reauthorization-form" component={ReauthorizationForm} />
         <Route path="/delete-account-page" component={DeleteAccountPage} />
         <Route path="/file-upload-page" component={FileUploadPage} />
+        <Route path="/loading-page" component={LoadingPage} />
       </Switch>
     </Router>
   </div>
