@@ -2,7 +2,7 @@ import {history} from '../App';
 import firebase from '../firebase/firebase';
 import store from '../store/configureStore';
 
-export const loadFileNames = (fileNames) => {
+export const setFileNames = (fileNames) => {
   return {
     type: 'SET_FILENAMES',
     fileNames
@@ -16,9 +16,16 @@ export const startLoadFileNames = () => {
       .then((snapshot) => {
         const fileNames = [];
         snapshot.forEach( (childSnapshot) => {
-          fileNames.push(childSnapshot.val())
+          // console.log(childSnapshot.key);
+
+          fileNames.push({
+            id: childSnapshot.key,
+            filename: childSnapshot.val()
+          })
+
+          // fileNames.push(childSnapshot.val())
         })
-        dispatch(loadFileNames(fileNames));
+        dispatch(setFileNames(fileNames));
       })
   }
 }
