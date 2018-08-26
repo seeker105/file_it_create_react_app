@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
 import store from '../store/configureStore';
 import {saveAs} from 'file-saver/FileSaver';
-import {loadDashBoard} from '../actions/files';
+import {loadDashBoard, setFileNames} from '../actions/files';
 
 export default class DashboardPage extends React.Component {
   constructor(props) {
@@ -42,16 +42,22 @@ export default class DashboardPage extends React.Component {
     console.log(e.target.value);
     const filename = e.target.name;
     // first remove the file from storage
-    // const storagePromise = this.storageRef.child('files/' + this.user.uid + '/' + filename).delete()
-    //   .catch((error) => {
-    //     alert("There was a problem deleting the file: " + error.message);
-    //   })
+    const storagePromise = this.storageRef.child('files/' + this.user.uid + '/' + filename).delete()
+      .catch((error) => {
+        alert("There was a problem deleting the file: " + error.message);
+      })
     // remove the filename from the list in the DB
-    // const fileListPromise = firebase.database().ref('users/' + this.user.uid + '/files/' + e.target.value).remove()
-    //   .catch((error) => {
-    //     alert("There was a problem removing the file reference: " + error.message);
-    //   })
-
+    const fileListPromise = firebase.database().ref('users/' + this.user.uid + '/files/' + e.target.value).remove()
+      .catch((error) => {
+        alert("There was a problem removing the file reference: " + error.message);
+      })
+    // remove the filename from Redux store
+    const newFileNames = this.fileNames.filter(fileNameObj => fileNameObj.id !== e.target.value);
+    console.log("newFileNames = ", newFileNames);
+    store.dispatch(setFileNames(newFileNames));
+    // After the Promises finish, reload the page to display correct data
+    Promise.all([storagePromise, fileListPromise])
+      .then(loadDashBoard());
   }
 
   render () {
