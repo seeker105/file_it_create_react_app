@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
 import store from '../store/configureStore';
 import {saveAs} from 'file-saver/FileSaver';
+import {loadDashBoard} from '../actions/files';
 
 export default class DashboardPage extends React.Component {
   constructor(props) {
@@ -12,17 +13,15 @@ export default class DashboardPage extends React.Component {
     if (this.fileNames && this.fileNames.length === 0) {
       this.mainMessage = 'No files yet.'
     }
+    this.user = store.getState().credential.user
+    this.storageRef = firebase.storage().ref();
   }
 
   onFileClick = (e) => {
     e.preventDefault();
 
-    console.log(e.target.text);
-    const user = store.getState().credential.user
     const filename = e.target.text;
-    const storage = firebase.storage();
-    const storageRef = storage.ref();
-    storageRef.child('files/' + user.uid + '/' + filename).getDownloadURL()
+    this.storageRef.child('files/' + this.user.uid + '/' + filename).getDownloadURL()
       .then( (url) => {
         const xhr = new XMLHttpRequest();
         xhr.responseType = 'blob';
@@ -38,6 +37,18 @@ export default class DashboardPage extends React.Component {
       })
   }
 
+  onDeleteClick = (e) => {
+    console.log(e.target.name);
+    console.log(e.target.value);
+    const filename = e.target.name;
+    // first remove the file from storage
+    const storagePromise = this.storageRef.child('files/' + this.user.uid + '/' + filename).delete()
+      .catch((error) => {
+        alert("There was a problem deleting the file: " + error.message);
+      })
+    // const fileListPromise = this.
+  }
+
   render () {
     return (
       <div>
@@ -49,6 +60,7 @@ export default class DashboardPage extends React.Component {
           {store.getState().fileNames.map( (name, x) => {
             return <li key={x}>
               <a href="javascript:;" onClick={this.onFileClick}>{name}</a>
+              <button type="button" name={name} onClick={this.onDeleteClick} value={x}>Delete File</button>
             </li>
           })}
         </ul>
