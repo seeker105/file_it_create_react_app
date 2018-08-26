@@ -16,7 +16,14 @@ export const startLoadFileNames = () => {
       .then((snapshot) => {
         const fileNames = [];
         snapshot.forEach( (childSnapshot) => {
-          fileNames.push(childSnapshot.val())
+          // console.log(childSnapshot.key);
+
+          fileNames.push({
+            id: childSnapshot.key,
+            filename: childSnapshot.val()
+          })
+          
+          // fileNames.push(childSnapshot.val())
         })
         dispatch(loadFileNames(fileNames));
       })

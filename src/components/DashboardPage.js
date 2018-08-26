@@ -42,11 +42,16 @@ export default class DashboardPage extends React.Component {
     console.log(e.target.value);
     const filename = e.target.name;
     // first remove the file from storage
-    const storagePromise = this.storageRef.child('files/' + this.user.uid + '/' + filename).delete()
-      .catch((error) => {
-        alert("There was a problem deleting the file: " + error.message);
-      })
-    // const fileListPromise = this.
+    // const storagePromise = this.storageRef.child('files/' + this.user.uid + '/' + filename).delete()
+    //   .catch((error) => {
+    //     alert("There was a problem deleting the file: " + error.message);
+    //   })
+    // remove the filename from the list in the DB
+    // const fileListPromise = firebase.database().ref('users/' + this.user.uid + '/files/' + e.target.value).remove()
+    //   .catch((error) => {
+    //     alert("There was a problem removing the file reference: " + error.message);
+    //   })
+
   }
 
   render () {
@@ -57,10 +62,16 @@ export default class DashboardPage extends React.Component {
         <Link to="/file-upload-page">Upload Files</Link>
         {this.mainMessage && <p>{this.mainMessage}</p>}
         <ul>
-          {store.getState().fileNames.map( (name, x) => {
-            return <li key={x}>
-              <a href="javascript:;" onClick={this.onFileClick}>{name}</a>
-              <button type="button" name={name} onClick={this.onDeleteClick} value={x}>Delete File</button>
+          {store.getState().fileNames.map( (filenameObj, x) => {
+            return <li key={filenameObj.id}>
+              <a href="javascript:;" onClick={this.onFileClick}>{filenameObj.filename}</a>
+              <button
+                type="button"
+                name={filenameObj.filename}
+                onClick={this.onDeleteClick}
+                value={filenameObj.id}
+                >Delete File
+              </button>
             </li>
           })}
         </ul>
