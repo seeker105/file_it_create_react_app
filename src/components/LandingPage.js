@@ -1,13 +1,52 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import '../css/LandingPage.css';
+import {history} from '../App';
 
 class LandingPage extends React.Component {
+  onCreateAccountClick = () => {
+    history.push("/create-account")
+  }
+
+  onSignInWithEmailClick = () => {
+    history.push("/sign-in-form")
+  }
+
   render() {
     return (
-      <div>
-        <Link to="/create-account" id="landing-page-link-to-create-account-form">Create Account</Link>
-        <br />
-        <Link to="/sign-in-form" id="landing-page-link-to-sign-in-form">Sign In</Link>
+      <div className="box-layout">
+        <div className="box-layout__box">
+          <h1 className="box-layout__title">File It!</h1>
+          <p>Save your files in the cloud. Download from anywhere.</p>
+          <button
+            type="button"
+            onClick={this.onCreateAccountClick}
+            className="button">
+            Create Account
+          </button>
+          <br />
+          <button
+            type="button"
+            onClick={this.onSignInWithEmailClick}
+            className="button">
+            Sign In
+          </button>
+
+
+          {/* <Link
+            to="/create-account"
+            id="landing-page-link-to-create-account-form"
+            className="button">
+            Create Account
+          </Link>
+          <br />
+          <Link
+            to="/sign-in-form"
+            id="landing-page-link-to-sign-in-form"
+            className="button">
+            Sign In
+          </Link> */}
+        </div>
       </div>
     );
   }
