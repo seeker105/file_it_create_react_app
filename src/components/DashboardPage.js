@@ -37,27 +37,31 @@ export default class DashboardPage extends React.Component {
       })
   }
 
+
+
   onDeleteClick = (e) => {
-    console.log(e.target.name);
-    console.log(e.target.value);
-    const filename = e.target.name;
-    // first remove the file from storage
-    const storagePromise = this.storageRef.child('files/' + this.user.uid + '/' + filename).delete()
+      console.log(e.target.name);
+      console.log(e.target.value);
+      const filename = e.target.name;
+    if (window.confirm(filename + ' will be Deleted. This CANNOT be undone. Are you sure?')) {
+      // first remove the file from storage
+      const storagePromise = this.storageRef.child('files/' + this.user.uid + '/' + filename).delete()
       .catch((error) => {
         alert("There was a problem deleting the file: " + error.message);
       })
-    // remove the filename from the list in the DB
-    const fileListPromise = firebase.database().ref('users/' + this.user.uid + '/files/' + e.target.value).remove()
+      // remove the filename from the list in the DB
+      const fileListPromise = firebase.database().ref('users/' + this.user.uid + '/files/' + e.target.value).remove()
       .catch((error) => {
         alert("There was a problem removing the file reference: " + error.message);
       })
-    // remove the filename from Redux store
-    const newFileNames = this.fileNames.filter(fileNameObj => fileNameObj.id !== e.target.value);
-    console.log("newFileNames = ", newFileNames);
-    store.dispatch(setFileNames(newFileNames));
-    // After the Promises finish, reload the page to display correct data
-    Promise.all([storagePromise, fileListPromise])
+      // remove the filename from Redux store
+      const newFileNames = this.fileNames.filter(fileNameObj => fileNameObj.id !== e.target.value);
+      console.log("newFileNames = ", newFileNames);
+      store.dispatch(setFileNames(newFileNames));
+      // After the Promises finish, reload the page to display correct data
+      Promise.all([storagePromise, fileListPromise])
       .then(loadDashBoard());
+    }
   }
 
   render () {
