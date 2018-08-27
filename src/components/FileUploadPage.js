@@ -33,6 +33,16 @@ export default class FileUploadPage extends React.Component {
     }
   }
 
+  filenameIsFound = (filesData, filename) => {
+    let found = false;
+    for (let i = 0; i < filesData.length; i++) {
+      if (filesData[i].filename === filename) {
+        found = true;
+      }
+    }
+    return found;
+  }
+
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -40,7 +50,7 @@ export default class FileUploadPage extends React.Component {
     const file = document.getElementById('file-upload-page-file-input').files[0];
     console.log(file.name);
     const fileNames = store.getState().fileNames;
-    if (fileNames.includes(file.name)) {
+    if (this.filenameIsFound(fileNames, file.name)) {
       this.processOverwriteCheck(file);
     } else {
       this.uploadFile(file);
