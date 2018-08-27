@@ -40,9 +40,9 @@ export default class DashboardPage extends React.Component {
 
 
   onDeleteClick = (e) => {
-      console.log(e.target.name);
-      console.log(e.target.value);
-      const filename = e.target.name;
+    console.log(e.target.name);
+    console.log(e.target.value);
+    const filename = e.target.name;
     if (window.confirm(filename + ' will be Deleted. This CANNOT be undone. Are you sure?')) {
       // first remove the file from storage
       const storagePromise = this.storageRef.child('files/' + this.user.uid + '/' + filename).delete()
