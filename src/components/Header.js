@@ -18,11 +18,23 @@ export default class Header extends React.Component {
 
   render () {
     return (
-      <div>
-        <h4>File It Header. Hello {store.getState().firstName}</h4><br />
-        <Link to="/profile-page">Profile Page</Link><br />
-        <p><button onClick={this.onDashboardNavigation}>Home</button></p>
-        <button onClick={this.onLogoutClick}>Logout</button>
+      <div className="header">
+        <div className="content-container">
+          <div className="header__content">
+            <a href="javascript:;" onClick={this.onDashboardNavigation} className="header__title">
+              <h1>File It! </h1><br />
+            </a>
+            <div className="header__controls">
+              <Link to="/profile-page" className="header__profile-icon">
+                <ion-icon name="contact" size="large"></ion-icon>
+              </Link>
+              <Link to="/profile-page" className="header__profile-control">
+                Hello, {store.getState().firstName}
+              </Link>
+              <button onClick={this.onLogoutClick} className="header__logout-control">Logout</button>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
