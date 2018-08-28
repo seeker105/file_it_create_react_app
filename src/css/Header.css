@@ -32,7 +32,7 @@
 }
 
 .header__logout-control {
-    background: #364051;
+    background: none;
     color: white;
     border: none;
     font-size: 1rem;

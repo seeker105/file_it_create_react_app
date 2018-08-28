@@ -18,10 +18,13 @@ button:disabled {
   background: #1c88bf;
   color: white;
   border: none;
-  padding: 1rem;
+  padding: .5rem;
   margin: .2rem;
   font-size: 1.1rem;
-  font-weight: 300
+  font-weight: 300;
+  text-decoration: none;
+  display: inline-block;
+  line-height: 1;
 }
 
 .content-container {

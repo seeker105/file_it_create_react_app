@@ -20,7 +20,8 @@ export default class DashboardPage extends React.Component {
   onFileClick = (e) => {
     e.preventDefault();
 
-    const filename = e.target.text;
+    console.log(e.target.innerHTML);
+    const filename = e.target.innerHTML;
     this.storageRef.child('files/' + this.user.uid + '/' + filename).getDownloadURL()
       .then( (url) => {
         const xhr = new XMLHttpRequest();
@@ -68,23 +69,43 @@ export default class DashboardPage extends React.Component {
     return (
       <div>
         <Header />
-        <h1>DashboardPage</h1>
-        <Link to="/file-upload-page">Upload Files</Link>
-        {this.mainMessage && <p>{this.mainMessage}</p>}
-        <ul>
-          {store.getState().fileNames.map( (filenameObj, x) => {
-            return <li key={filenameObj.id}>
-              <a href="javascript:;" onClick={this.onFileClick}>{filenameObj.filename}</a>
-              <button
-                type="button"
-                name={filenameObj.filename}
-                onClick={this.onDeleteClick}
-                value={filenameObj.id}
-                >Delete File
-              </button>
-            </li>
-          })}
-        </ul>
+        <div className="page-header">
+          <div className="content-container">
+            <h1 className="page-header__title">Files List</h1>
+            <div className="page-header__actions">
+              <Link to="/file-upload-page" className="button">Upload Files</Link>
+            </div>
+          </div>
+        </div>
+        <div className="content-container">
+          {this.mainMessage && <p>{this.mainMessage}</p>}
+          <div className="files-list">
+            {store.getState().fileNames.map( (filenameObj, x) => {
+              return (
+                <div className="file-control" key={filenameObj.id}>
+                  <a href="javascript:;" onClick={this.onFileClick} className="file-link">
+                    <div className="file">
+                      <div className="file-icon">
+                        <ion-icon name="document"></ion-icon>
+                      </div>
+                      <div className="file-name">
+                        {filenameObj.filename}
+                      </div>
+                    </div>
+                  </a>
+                  <button
+                    type="button"
+                    name={filenameObj.filename}
+                    onClick={this.onDeleteClick}
+                    value={filenameObj.id}
+                    className="delete-button">
+                    Delete File
+                  </button>
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </div>
     )
   }
