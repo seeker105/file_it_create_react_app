@@ -1,0 +1,23 @@
+.box-layout {
+  align-items: center;
+  background: url("../images/file-cabinet.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.box-layout__box {
+  background: rgba(244, 244, 244, 0.95);
+  border-radius: 5px;
+  text-align: center;
+  width: 16rem;
+  padding: 1rem 1rem 2.5rem 1rem;
+}
+
+.box-layout__title {
+  line-height: 1;
+}
