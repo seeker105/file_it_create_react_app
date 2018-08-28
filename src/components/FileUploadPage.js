@@ -64,13 +64,20 @@ export default class FileUploadPage extends React.Component {
     return (
       <div>
         <Header />
-        <form onSubmit={this.onSubmit}>
-          {this.state.error && <p className="form-error">{this.state.error}</p>}
-          <p><label>Choose File to upload</label></p>
-          <p><input type="file" id="file-upload-page-file-input" /></p>
-          <button>Submit</button>
-        </form>
-        <Link to="/dashboard">Cancel</Link>
+        <div className="page-header">
+          <div className="content-container">
+            <h1 className="page-header__title">File Upload Form</h1>
+          </div>
+        </div>
+        <div className="content-container">
+          <form onSubmit={this.onSubmit}>
+            {this.state.error && <p className="form-error">{this.state.error}</p>}
+            <p><label>Choose File to upload</label></p>
+            <p><input type="file" id="file-upload-page-file-input" /></p>
+            <button className="button">Upload File</button>
+          </form>
+          <Link to="/dashboard" className="danger-button">Cancel</Link>
+        </div>
       </div>
     )
   }
