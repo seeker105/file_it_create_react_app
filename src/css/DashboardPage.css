@@ -1,0 +1,36 @@
+.files-list {
+  display: flex;
+}
+
+.file-control {
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.file {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 8rem;
+}
+
+.file-icon {
+  font-size: 5rem;
+  margin: 0;
+  height: 5rem;
+}
+
+.file-name {
+  font-size: .8rem;
+}
+
+.file-link {
+  text-decoration: none;
+  color: black;
+}
+
+.delete-button {
+  background: red;
+  color: white;
+}
