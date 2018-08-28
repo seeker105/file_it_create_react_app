@@ -17,11 +17,10 @@ export default class DashboardPage extends React.Component {
     this.storageRef = firebase.storage().ref();
   }
 
-  onFileClick = (e) => {
+  onFileClick = (e, fileNameObj) => {
     e.preventDefault();
 
-    console.log(e.target.innerHTML);
-    const filename = e.target.innerHTML;
+    const filename = fileNameObj.filename;
     this.storageRef.child('files/' + this.user.uid + '/' + filename).getDownloadURL()
       .then( (url) => {
         const xhr = new XMLHttpRequest();
@@ -83,7 +82,7 @@ export default class DashboardPage extends React.Component {
             {store.getState().fileNames.map( (filenameObj, x) => {
               return (
                 <div className="file-control" key={filenameObj.id}>
-                  <a href="javascript:;" onClick={this.onFileClick} className="file-link">
+                  <a href="javascript:;" onClick={(e) => this.onFileClick(e, filenameObj)} className="file-link">
                     <div className="file">
                       <div className="file-icon">
                         <ion-icon name="document"></ion-icon>
