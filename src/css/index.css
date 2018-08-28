@@ -27,8 +27,31 @@ button:disabled {
   line-height: 1;
 }
 
+.danger-button {
+  background: red;
+  color: white;
+  border: none;
+  padding: .5rem;
+  margin: .2rem;
+  font-size: 1.1rem;
+  font-weight: 300;
+  text-decoration: none;
+  display: inline-block;
+  line-height: 1;
+}
+
 .content-container {
   margin: 0 auto;
   padding: 0 1.6rem;
   max-width: 80rem;
+}
+
+.small-content-container {
+  margin: 0 auto;
+  padding: 0 1.6rem;
+  max-width: 20rem;
+}
+
+a {
+  text-decoration: none;
 }
