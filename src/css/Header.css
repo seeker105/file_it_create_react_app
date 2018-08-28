@@ -1,0 +1,45 @@
+.header {
+  background: #364051;
+  color: white;
+}
+
+.header__title {
+  color: white;
+  text-decoration: none;
+}
+
+.header__title h1 {
+  margin: 0;
+}
+
+.header__content {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.header__controls {
+  display: flex;
+  align-items: center;
+}
+
+.header__profile-control {
+  padding-right: 1rem;
+  padding-left: 0;
+  color: white;
+  text-decoration: none;
+}
+
+.header__logout-control {
+    background: #364051;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.header__profile-icon {
+  color: white;
+  padding: 0;
+}
