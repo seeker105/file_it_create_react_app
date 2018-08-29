@@ -48,15 +48,24 @@ class EditProfilePage extends React.Component {
     return (
       <div>
         <Header />
-        <form onSubmit={this.onSubmit}>
-          {this.state.error && <p className="form-error">{this.state.error}</p>}
-          <label>First Name</label>
-          <input type="text" placeholder="First Name" id="edit-profile-form-first-name-field" defaultValue={store.getState().firstName} />
-          <label>Last Name</label>
-          <input type="text" placeholder="Last Name" id="edit-profile-form-last-name-field" defaultValue={store.getState().lastName} />
-          <button>Submit</button>
-        </form>
-        <Link to="/profile-page">Cancel</Link>
+        <div className="page-header">
+          <div className="content-container">
+            <h1 className="page-header__title">Edit Name</h1>
+          </div>
+        </div>
+        <div className="small-content-container">
+          <form onSubmit={this.onSubmit}>
+            <div className="form-container">
+              {this.state.error && <p className="form-error">{this.state.error}</p>}
+              <label className="label-style">First Name</label>
+              <input type="text" placeholder="First Name" id="edit-profile-form-first-name-field" defaultValue={store.getState().firstName} className="input-style"/>
+              <label className="label-style">Last Name</label>
+              <input type="text" placeholder="Last Name" id="edit-profile-form-last-name-field" defaultValue={store.getState().lastName} className="input-style"/>
+            </div>
+            <button className="button">Submit</button>
+          </form>
+          <Link to="/profile-page" className="button">Cancel</Link>
+        </div>
       </div>
     )
   }
