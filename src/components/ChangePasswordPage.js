@@ -34,13 +34,22 @@ export default class ChangePasswordPage extends React.Component {
     return (
       <div>
         <Header />
-        <form onSubmit={this.onSubmit}>
-          {this.state.error && <p className="form-error">{this.state.error}</p>}
-          <label>Enter new password</label>
-          <p><input type="text" placeholder="New Password" id="change-password-form-new-password-field"/></p>
-          <p><button>Submit</button></p>
-        </form>
-        <Link to="/profile-page">Cancel</Link>
+        <div className="page-header">
+          <div className="content-container">
+            <h1 className="page-header__title">Change Password</h1>
+          </div>
+        </div>
+        <div className="small-content-container">
+          <form onSubmit={this.onSubmit}>
+            <div className="form-container">
+              {this.state.error && <p className="form-error">{this.state.error}</p>}
+              <label className="label-style">Enter new password</label>
+              <input type="text" placeholder="New Password" id="change-password-form-new-password-field" className="input-style"/>
+            </div>
+            <button className="button">Submit</button>
+          </form>
+          <Link to="/profile-page" className="button">Cancel</Link>
+        </div>
       </div>
     )
   }
