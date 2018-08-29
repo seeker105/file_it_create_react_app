@@ -31,21 +31,6 @@ class LandingPage extends React.Component {
             className="button">
             Sign In
           </button>
-
-
-          {/* <Link
-            to="/create-account"
-            id="landing-page-link-to-create-account-form"
-            className="button">
-            Create Account
-          </Link>
-          <br />
-          <Link
-            to="/sign-in-form"
-            id="landing-page-link-to-sign-in-form"
-            className="button">
-            Sign In
-          </Link> */}
         </div>
       </div>
     );

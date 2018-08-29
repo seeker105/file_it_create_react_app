@@ -2,9 +2,8 @@ import React from 'react';
 
 const LoadingPage = () => {
   return (
-    <div>
+    <div className="small-content-container">
       <h1>Loading...</h1>
-      {/* <img src="../images/logo.svg" alt="Loading logo" height="50" width="50" /> */}
     </div>
   )
 }

@@ -73,3 +73,9 @@ button:disabled {
 a {
   text-decoration: none;
 }
+
+.form-error {
+  color: red;
+  font-size: 1.4rem;
+  font-style: italic;
+}
