@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
 import {history} from '../App';
+import Header from './Header';
 
 export default class ReauthorizationForm extends React.Component {
   constructor(props) {
@@ -31,6 +32,7 @@ export default class ReauthorizationForm extends React.Component {
   render () {
     return (
       <div>
+        <Header />
         <div className="page-header">
           <div className="content-container">
             <h1 className="page-header__title">Re-authorize Account</h1>
