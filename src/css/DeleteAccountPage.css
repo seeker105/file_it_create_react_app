@@ -1,0 +1,9 @@
+.delete-account-button {
+  background: red;
+  color: white;
+  border: none;
+}
+
+.escape-delete-button {
+  margin-top: 1.5rem;
+}
