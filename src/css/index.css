@@ -52,6 +52,24 @@ button:disabled {
   max-width: 20rem;
 }
 
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container input {
+  margin-bottom: 1rem;
+}
+
+.input-style {
+  height: 1.3rem;
+  font-size: 1.2rem;
+}
+
+.label-style {
+  font-size: .9rem;
+}
+
 a {
   text-decoration: none;
 }
