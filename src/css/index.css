@@ -52,6 +52,55 @@ button:disabled {
   max-width: 20rem;
 }
 
+.account-type-content-container {
+  display: flex;
+  margin: 0 auto 4rem auto;
+  padding: 0 1.6rem;
+  max-width: 45rem;
+}
+
+.account-type-column {
+  border: .1rem solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 12rem;
+  margin: .1rem;
+  width: 10rem;
+}
+
+.account-type-description {
+  margin: 1rem;
+  text-align: center;
+}
+
+.personal-account-type-column {
+  background: rgb(169, 218, 181);
+}
+
+.business-account-type-column {
+  background: rgb(145, 168, 249);
+}
+
+.premium-account-type-column {
+  background: rgb(254, 251, 10);
+}
+
+.account-price-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.account-type-form-content-container {
+  width: 27rem;
+  margin: 0 auto 7rem auto;
+}
+
+
+
+
+
+
 .form-container {
   display: flex;
   flex-direction: column;

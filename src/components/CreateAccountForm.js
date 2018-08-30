@@ -19,7 +19,7 @@ export default class CreateAccountForm extends React.Component {
     const password = document.getElementById('create_form_password_field').value;
     const firstName = document.getElementById('create_form_first_name_field').value;
     const lastName = document.getElementById('create_form_last_name_field').value;
-    const accountType = 0;
+    const accountType = "0";
     localStorage.setItem('firstName', firstName);
     localStorage.setItem('lastName', lastName);
     localStorage.setItem('accountType', accountType);

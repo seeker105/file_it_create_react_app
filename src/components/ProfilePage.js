@@ -6,11 +6,11 @@ import Header from './Header';
 export default class ProfilePage extends React.Component {
   getAccountTypeString = () => {
     switch (store.getState().accountType) {
-      case 0:
+      case "0":
         return "Free";
-      case 1:
+      case "1":
         return "Personal";
-      case 2:
+      case "2":
         return "Business";
       default:
         return "Premium";
@@ -33,6 +33,7 @@ export default class ProfilePage extends React.Component {
           <Link to="/edit-profile-page" className="button">Change Name</Link><br />
           <Link to="/change-email-page" className="button">Change Email</Link><br />
           <Link to="/change-password-page" className="button">Change Password</Link><br />
+          <Link to="/select-account-type" className="button">Change Account Tier</Link><br />
           <Link to="/delete-account-page" className="danger-button">Delete Account</Link>
         </div>
       </div>
