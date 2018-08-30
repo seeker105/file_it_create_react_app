@@ -48,15 +48,21 @@ export default class FileUploadPage extends React.Component {
     e.preventDefault();
     const user = store.getState().credential.user;
     const file = document.getElementById('file-upload-page-file-input').files[0];
-    console.log(file.name);
-    const fileNames = store.getState().fileNames;
-    if (this.filenameIsFound(fileNames, file.name)) {
-      this.processOverwriteCheck(file);
+
+    if (file) {
+      const fileNames = store.getState().fileNames;
+      if (this.filenameIsFound(fileNames, file.name)) {
+        this.processOverwriteCheck(file);
+      } else {
+        this.uploadFile(file);
+        // Add filename to fileNames list
+        firebase.database().ref('users/' + user.uid + '/files').push(file.name);
+        loadDashBoard();
+      }
     } else {
-      this.uploadFile(file);
-      // Add filename to fileNames list
-      firebase.database().ref('users/' + user.uid + '/files').push(file.name);
-      loadDashBoard();
+      this.setState({
+        error: "Valid file entry is required"
+      })
     }
   }
 
