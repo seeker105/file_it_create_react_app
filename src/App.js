@@ -23,8 +23,8 @@ const App = () => (
 
 export default App;
 
-const logIn = (firstName, lastName, email) => {
-  store.dispatch(loginGenerator(firstName, lastName, email));
+const logIn = (firstName, lastName, email, accountType) => {
+  store.dispatch(loginGenerator(firstName, lastName, email, accountType));
   if (history.location.pathname === '/' ||
       history.location.pathname === '/dashboard' ||
       history.location.pathname === '/create-account' ||
@@ -37,7 +37,7 @@ const logIn = (firstName, lastName, email) => {
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    let firstName, lastName;
+    let firstName, lastName, accountType;
     const email = user.email;
     if (user.displayName) {
       firstName = user.displayName;
@@ -48,20 +48,23 @@ firebase.auth().onAuthStateChanged((user) => {
       })
     }
 
-    lastName = localStorage.getItem('lastName')
-    if (!lastName) {
-      firebase.database().ref('users/' + user.uid +'/lastName')
+    lastName = localStorage.getItem('lastName');
+    accountType = localStorage.getItem('accountType');
+    if (lastName && accountType) {
+      logIn(firstName, lastName, email, parseInt(accountType));
+    } else {
+      firebase.database().ref('users/' + user.uid)
         .once('value')
         .then((snapshot) => {
-          lastName = snapshot.val();
-          logIn(firstName, lastName, email);
-        });
-    } else {
-      logIn(firstName, lastName, email);
+          lastName = snapshot.val().lastName;
+          accountType = snapshot.val().accountType;
+          logIn(firstName, lastName, email, accountType);
+        })
     }
   } else {
     localStorage.removeItem('lastName');
     localStorage.removeItem('firstName');
+    localStorage.removeItem('accountType');
     store.dispatch(logoutGenerator());
     console.log(store.getState());
     history.push('/');

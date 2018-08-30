@@ -1,10 +1,11 @@
 
-export const storeUserData = (firstName, lastName, email) => {
+export const storeUserData = (firstName, lastName, email, accountType) => {
   return {
     type: 'STORE_USER_DATA',
     firstName,
     lastName,
-    email
+    email,
+    accountType
   }
 }
 
