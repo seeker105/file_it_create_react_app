@@ -8,6 +8,7 @@ import './css/Header.css';
 import './css/pageHeader.css';
 import './css/DashboardPage.css';
 import './css/DeleteAccountPage.css';
+import './css/AccountSelectionPage.css';
 
 registerServiceWorker();
 
