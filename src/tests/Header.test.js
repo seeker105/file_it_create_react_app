@@ -19,9 +19,5 @@ test('should show page layout', () => {
         <Header/>
     </MemoryRouter>
   );
-  expect(wrapper.find('h4').length).toBe(1)
-  expect(wrapper.find('h4').text()).toBe(`File It Header. Hello ${firstName}`)
-  expect(wrapper.find('a').length).toBe(2)
-  expect(wrapper.find('a').at(0).text()).toBe('Profile Page')
-  expect(wrapper.find('a').at(1).text()).toBe('Home')
+  expect(wrapper.find('a').length).toBe(3)
 });
