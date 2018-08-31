@@ -87,7 +87,6 @@ export default class CheckoutPage extends React.Component {
                       <label className="label-style">Year</label>
                       <select id="checkout-year-field" className="select-style">
                         <option value=""></option>
-                        <option value="2018"></option>
                         <option value="2018">2018</option>
                         <option value="2019">2019</option>
                         <option value="2020">2020</option>
