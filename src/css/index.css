@@ -59,6 +59,11 @@ button:disabled {
   max-width: 45rem;
 }
 
+.note-container {
+  max-width: 45rem;
+  margin: 0 auto;
+}
+
 .account-type-column {
   border: .1rem solid black;
   display: flex;
@@ -92,7 +97,7 @@ button:disabled {
 }
 
 .account-type-form-content-container {
-  width: 27rem;
+  width: 30rem;
   margin: 0 auto 7rem auto;
 }
 
