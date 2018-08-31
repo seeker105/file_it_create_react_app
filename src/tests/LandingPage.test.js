@@ -11,28 +11,4 @@ test('should display create account and sign in links', () => {
   const wrapper = mount(<MemoryRouter initialEntries={['/']} initialIndex={0}>
     <LandingPage />
   </MemoryRouter>);
-  expect(wrapper.find('a').at(0).text()).toBe("Create Account");
-  expect(wrapper.find('a').at(1).text()).toBe("Sign In");
 })
-
-// test('experimental tests', () => {
-//   const leftClickEvent = {
-//     defaultPrevented: false,
-//     preventDefault() { this.defaultPrevented = true },
-//     metaKey: null,
-//     altKey: null,
-//     ctrlKey: null,
-//     shiftKey: null,
-//     button: 0
-//   }
-//   const div = document.createElement('div');
-//   const wrapper2 = render(
-//     <MemoryRouter initialEntries={['/']} initialIndex={0}>
-//       <LandingPage />
-//     </MemoryRouter>, div
-//   );
-
-//   console.log(div.innerHTML);
-//   Simulate.click(div.querySelector('#landing-page-link-to-create-account-form'), leftClickEvent);
-//   console.log(div.innerHTML);
-// })
