@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/LandingPage.css';
 import {history} from '../App';
 
-class LandingPage extends React.Component {
+export default class LandingPage extends React.Component {
   onCreateAccountClick = () => {
     history.push("/create-account")
   }
@@ -35,4 +35,3 @@ class LandingPage extends React.Component {
     );
   }
 }
-export default LandingPage;

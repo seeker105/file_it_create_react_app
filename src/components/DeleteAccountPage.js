@@ -5,7 +5,7 @@ import Header from './Header';
 import firebase from '../firebase/firebase';
 import {logoutGenerator} from '../actions/auth';
 
-export default class ProfilePage extends React.Component {
+export default class DeleteAccountPage extends React.Component {
 
   onDeleteSelected = (e) => {
     console.log('button clicked');
