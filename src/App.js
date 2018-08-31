@@ -51,7 +51,7 @@ firebase.auth().onAuthStateChanged((user) => {
     lastName = localStorage.getItem('lastName');
     accountType = localStorage.getItem('accountType');
     if (lastName && accountType) {
-      logIn(firstName, lastName, email, parseInt(accountType));
+      logIn(firstName, lastName, email, accountType);
     } else {
       firebase.database().ref('users/' + user.uid)
         .once('value')
