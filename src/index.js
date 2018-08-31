@@ -9,6 +9,7 @@ import './css/pageHeader.css';
 import './css/DashboardPage.css';
 import './css/DeleteAccountPage.css';
 import './css/AccountSelectionPage.css';
+import './css/CheckoutPage.css';
 
 registerServiceWorker();
 

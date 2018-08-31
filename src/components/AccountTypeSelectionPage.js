@@ -2,7 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import store from '../store/configureStore';
 import Header from './Header';
-import {getPlanPrice} from '../utilities/prices';
+import {getPlanPrice} from '../utilities/planData';
+import {setOrderValues} from '../actions/profile';
+import {history} from '../App';
 
 export default class ProfilePage extends React.Component {
   constructor (props) {
@@ -28,7 +30,8 @@ export default class ProfilePage extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    console.log("submitted");
+    store.dispatch(setOrderValues(this.state.accountType));
+    history.push('/checkout')
   }
 
   render () {
@@ -98,7 +101,7 @@ export default class ProfilePage extends React.Component {
                 <label htmlFor="plan3">Premium: 100GB $80/month</label>
               </div>
             </fieldset>
-            <button className="button">Checkout</button>
+            <button className="button" disabled={this.state.accountType == store.getState().accountType}>Checkout</button>
           </form>
           <p>*Note: Changes made will take effect at the start of the next billing cycle</p>
         </div>

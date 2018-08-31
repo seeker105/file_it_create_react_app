@@ -24,10 +24,6 @@ const rootReducer = (state = {}, action) => {
       };
     case 'LOGOUT':
       return {
-        // ...state,
-        // firstName: undefined,
-        // lastName: undefined,
-        // email: undefined
       };
     case 'STORE_USER_CREDENTIAL':
       return {
@@ -43,6 +39,11 @@ const rootReducer = (state = {}, action) => {
       return {
         ...state,
         fileNames: action.fileNames
+      }
+    case 'SET_ORDER_VALUES':
+      return {
+        ...state,
+        newAccountType: action.accountType
       }
     default:
       return state;

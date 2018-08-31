@@ -22,3 +22,10 @@ export const updateEmail = (email) => {
     email
   }
 }
+
+export const setOrderValues = (accountType) => {
+  return {
+    type: 'SET_ORDER_VALUES',
+    accountType
+  }
+}
