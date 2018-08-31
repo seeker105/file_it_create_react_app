@@ -5,7 +5,7 @@ import {getPlanPrice} from '../utilities/planData';
 import {setOrderValues} from '../actions/profile';
 import {history} from '../App';
 
-export default class ProfilePage extends React.Component {
+export default class AccountTypeSelectionPage extends React.Component {
   constructor (props) {
     super(props);
     const accountType = store.getState().accountType;

@@ -6,8 +6,7 @@ import firebase from '../firebase/firebase';
 import {history} from '../App';
 import {storeUserData} from '../actions/profile';
 
-
-class EditProfilePage extends React.Component {
+export default class EditProfilePage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -70,6 +69,3 @@ class EditProfilePage extends React.Component {
     )
   }
 }
-
-
-export default EditProfilePage;

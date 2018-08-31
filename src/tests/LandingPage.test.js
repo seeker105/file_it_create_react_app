@@ -8,7 +8,7 @@ import {history} from '../App';
 import {Simulate} from 'react-dom/test-utils';
 
 test('should display create account and sign in links', () => {
-  const wrapper = mount(<MemoryRouter initialEntries={['/']} initialIndex={0}>
-    <LandingPage />
-  </MemoryRouter>);
+  const wrapper = shallow(<LandingPage />);
+
+  expect(wrapper).toMatchSnapshot();
 })
