@@ -27,6 +27,12 @@ button:disabled {
   line-height: 1;
 }
 
+.button:disabled {
+  @extend .button;
+  background: gray;
+  color: black;
+}
+
 .danger-button {
   background: red;
   color: white;

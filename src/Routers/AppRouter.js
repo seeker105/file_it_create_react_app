@@ -14,6 +14,7 @@ import DeleteAccountPage from '../components/DeleteAccountPage';
 import FileUploadPage from '../components/FileUploadPage';
 import LoadingPage from '../components/LoadingPage';
 import AccountTypeSelectionPage from '../components/AccountTypeSelectionPage';
+import CheckoutPage from '../components/CheckoutPage';
 
 const AppRouter = (props) => (
   <div>
@@ -32,6 +33,7 @@ const AppRouter = (props) => (
         <Route path="/file-upload-page" component={FileUploadPage} />
         <Route path="/loading-page" component={LoadingPage} />
         <Route path="/select-account-type" component={AccountTypeSelectionPage} />
+        <Route path="/checkout" component={CheckoutPage} />
       </Switch>
     </Router>
   </div>

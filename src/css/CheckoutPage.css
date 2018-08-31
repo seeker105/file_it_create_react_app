@@ -1,0 +1,30 @@
+.plan-info {
+  font-weight: 400;
+  margin: 0;
+}
+
+.order-placement-container {
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+}
+
+.fieldset-label {
+  margin-bottom: 0;
+}
+
+.state-zip-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.state-container {
+  display: flex;
+  flex-direction: column;
+  width: 3.5rem;
+  margin-right: 1rem;
+}
+
+.zip-container {
+  display: flex;
+  flex-direction: column;
+}
