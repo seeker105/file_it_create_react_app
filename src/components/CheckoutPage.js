@@ -3,18 +3,13 @@ import {Link} from 'react-router-dom';
 import store from '../store/configureStore';
 import Header from './Header';
 import {getPlanPrice, getPlanDetails} from '../utilities/planData';
+import {history} from '../App';
 
-export default class ProfilePage extends React.Component {
-  constructor (props) {
-    super(props);
-    const accountType = store.getState().accountType;
-  }
-
-
+export default class CheckoutPage extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     console.log("submitted");
-    // Redirect to order completed page
+    history.push('/order-confirmation-page');
   }
 
   render () {

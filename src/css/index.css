@@ -58,6 +58,13 @@ button:disabled {
   max-width: 20rem;
 }
 
+.medium-content-container-centered-text {
+    margin: 0 auto;
+    padding: 0 1.6rem;
+    max-width: 40rem;
+    text-align: center;
+}
+
 .form-container {
   display: flex;
   flex-direction: column;

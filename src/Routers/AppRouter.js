@@ -15,6 +15,7 @@ import FileUploadPage from '../components/FileUploadPage';
 import LoadingPage from '../components/LoadingPage';
 import AccountTypeSelectionPage from '../components/AccountTypeSelectionPage';
 import CheckoutPage from '../components/CheckoutPage';
+import OrderConfirmationPage from '../components/OrderConfirmationPage';
 
 const AppRouter = (props) => (
   <div>
@@ -34,6 +35,7 @@ const AppRouter = (props) => (
         <Route path="/loading-page" component={LoadingPage} />
         <Route path="/select-account-type" component={AccountTypeSelectionPage} />
         <Route path="/checkout" component={CheckoutPage} />
+        <Route path="/order-confirmation-page" component={OrderConfirmationPage} />
       </Switch>
     </Router>
   </div>
