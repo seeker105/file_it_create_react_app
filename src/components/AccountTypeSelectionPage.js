@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import store from '../store/configureStore';
 import Header from './Header';
 import {getPlanPrice} from '../utilities/planData';
@@ -101,7 +100,7 @@ export default class ProfilePage extends React.Component {
                 <label htmlFor="plan3">Premium: 100GB $80/month</label>
               </div>
             </fieldset>
-            <button className="button" disabled={this.state.accountType == store.getState().accountType}>Checkout</button>
+            <button className="button" disabled={this.state.accountType === store.getState().accountType}>Checkout</button>
           </form>
           <p>*Note: Changes made will take effect at the start of the next billing cycle</p>
         </div>

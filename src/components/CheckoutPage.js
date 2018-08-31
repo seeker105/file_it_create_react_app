@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import store from '../store/configureStore';
 import Header from './Header';
 import {getPlanPrice, getPlanDetails} from '../utilities/planData';
