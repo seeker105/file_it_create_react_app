@@ -4,7 +4,7 @@ import firebase from './firebase/firebase';
 import {Provider} from 'react-redux';
 import store, {persistor} from './store/configureStore';
 import AppRouter from './Routers/AppRouter';
-import {loginGenerator, logoutGenerator} from './actions/auth';
+import {logoutGenerator} from './actions/auth';
 import {storeUserData} from './actions/profile';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import LoadingPage from './components/LoadingPage';
@@ -64,7 +64,7 @@ firebase.auth().onAuthStateChanged((user) => {
     localStorage.removeItem('firstName');
     localStorage.removeItem('accountType');
     store.dispatch(logoutGenerator());
-    console.log(store.getState());
+    // console.log(store.getState());
     history.push('/');
   }
 })
