@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import store, {persistor} from './store/configureStore';
 import AppRouter from './Routers/AppRouter';
 import {loginGenerator, logoutGenerator} from './actions/auth';
+import {storeUserData} from './actions/profile';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import LoadingPage from './components/LoadingPage';
 import {loadDashBoard} from './actions/files';
@@ -24,7 +25,7 @@ const App = () => (
 export default App;
 
 const logIn = (firstName, lastName, email, accountType) => {
-  store.dispatch(loginGenerator(firstName, lastName, email, accountType));
+  store.dispatch(storeUserData(firstName, lastName, email, accountType));
   if (history.location.pathname === '/' ||
       history.location.pathname === '/dashboard' ||
       history.location.pathname === '/create-account' ||
