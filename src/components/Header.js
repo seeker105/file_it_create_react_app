@@ -12,7 +12,8 @@ export default class Header extends React.Component {
     history.push('/');
   }
 
-  onDashboardNavigation = () => {
+  onDashboardNavigation = (e) => {
+    e.preventDefault();
     loadDashBoard();
   }
 
@@ -21,7 +22,7 @@ export default class Header extends React.Component {
       <div className="header">
         <div className="content-container">
           <div className="header__content">
-            <a href="javascript:;" onClick={this.onDashboardNavigation} className="header__title">
+            <a href="/" onClick={this.onDashboardNavigation} className="header__title">
               <h1>File It! </h1><br />
             </a>
             <div className="header__controls">

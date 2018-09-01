@@ -82,7 +82,7 @@ export default class DashboardPage extends React.Component {
             {store.getState().fileNames.map( (filenameObj, x) => {
               return (
                 <div className="file-control" key={filenameObj.id}>
-                  <a href="javascript:;" onClick={(e) => this.onFileClick(e, filenameObj)} className="file-link">
+                  <a href="/" onClick={(e) => this.onFileClick(e, filenameObj)} className="file-link">
                     <div className="file">
                       <div className="file-icon">
                         <ion-icon name="document"></ion-icon>
