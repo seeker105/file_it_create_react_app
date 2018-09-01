@@ -1,11 +1,12 @@
 import React from 'react';
-import store from '../store/configureStore';
+// import store from '../store/configureStore';
 import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
 import {history} from '../App';
 import {loadDashBoard} from '../actions/files';
+import {connect} from 'react-redux';
 
-export default class Header extends React.Component {
+export class Header extends React.Component {
   onLogoutClick = (e) => {
     e.preventDefault();
     firebase.auth().signOut();
@@ -30,7 +31,7 @@ export default class Header extends React.Component {
                 <ion-icon name="contact" size="large"></ion-icon>
               </Link>
               <Link to="/profile-page" className="header__profile-control">
-                Hello, {store.getState().firstName}
+                Hello, {this.props.firstName}
               </Link>
               <button onClick={this.onLogoutClick} className="header__logout-control">Logout</button>
             </div>
@@ -40,3 +41,16 @@ export default class Header extends React.Component {
     )
   }
 }
+
+// The purpose of the mapStateToProps function is to take the current result of
+// store.getState() and pass some of it's data to the component as props. It 
+// returns an object with key value pairs where the keys represent properties
+// on the 'props' object
+const mapStateToProps = (state) => {
+  return {
+    firstName: state.firstName
+  };
+}
+
+// ConnectedHeader
+export default connect(mapStateToProps)(Header);
