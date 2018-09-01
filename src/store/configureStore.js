@@ -6,6 +6,8 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 const rootReducer = (state = {}, action) => {
   switch (action.type) {
+    case 'LOGOUT':
+      return {};
     case 'STORE_USER_DATA':
       return {
         ...state,
@@ -13,9 +15,6 @@ const rootReducer = (state = {}, action) => {
         lastName: action.lastName,
         email: action.email,
         accountType: action.accountType
-      };
-    case 'LOGOUT':
-      return {
       };
     case 'STORE_USER_CREDENTIAL':
       return {
