@@ -44,9 +44,6 @@ firebase.auth().onAuthStateChanged((user) => {
       firstName = user.displayName;
     } else {
       firstName = localStorage.getItem('firstName');
-      user.updateProfile({
-        displayName: firstName
-      })
     }
 
     lastName = localStorage.getItem('lastName');
