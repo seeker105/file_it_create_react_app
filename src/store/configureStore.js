@@ -34,8 +34,13 @@ const rootReducer = (state = {}, action) => {
     case 'SET_ORDER_VALUES':
       return {
         ...state,
-        newAccountType: action.accountType
+        newAccountType: action.newAccountType
       };
+    case 'SET_ACCOUNT_TYPE':
+      return {
+        ...state,
+        accountType: action.accountType
+      }
     default:
       return state;
   }
