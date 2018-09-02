@@ -1,14 +1,16 @@
 import React from 'react';
 import store from '../store/configureStore';
+import {connect} from 'react-redux';
 import Header from './Header';
 import {getPlanPrice} from '../utilities/planData';
 import {setOrderValues} from '../actions/profile';
 import {history} from '../App';
 
-export default class AccountTypeSelectionPage extends React.Component {
+export class AccountTypeSelectionPage extends React.Component {
   constructor (props) {
     super(props);
-    const accountType = store.getState().accountType;
+    // const accountType = store.getState().accountType;
+    const accountType = props.accountType;
 
     this.state = {
       accountType,
@@ -18,7 +20,8 @@ export default class AccountTypeSelectionPage extends React.Component {
   }
 
   onRadioChange = (e) => {
-    const currentPrice = getPlanPrice(store.getState().accountType);
+    // const currentPrice = getPlanPrice(store.getState().accountType);
+    const currentPrice = getPlanPrice(this.props.accountType);
     const newAccountType = e.target.value;
     const difference = getPlanPrice(newAccountType) - currentPrice;
     this.setState({
@@ -100,7 +103,7 @@ export default class AccountTypeSelectionPage extends React.Component {
                 <label htmlFor="plan3">Premium: 100GB $80/month</label>
               </div>
             </fieldset>
-            <button className="button" disabled={this.state.accountType === store.getState().accountType}>Checkout</button>
+            <button className="button" disabled={this.state.accountType === this.props.accountType}>Checkout</button>
           </form>
           <p>*Note: Changes made will take effect at the start of the next billing cycle</p>
         </div>
@@ -109,3 +112,12 @@ export default class AccountTypeSelectionPage extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    accountType: state.accountType
+  }
+};
+
+// ConnectedAccountTypeSelectionPage
+export default connect(mapStateToProps)(AccountTypeSelectionPage)
