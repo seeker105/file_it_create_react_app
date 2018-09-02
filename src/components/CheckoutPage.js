@@ -1,10 +1,10 @@
 import React from 'react';
-import store from '../store/configureStore';
+import {connect} from 'react-redux';
 import Header from './Header';
 import {getPlanPrice, getPlanDetails} from '../utilities/planData';
 import {history} from '../App';
 
-export default class CheckoutPage extends React.Component {
+export class CheckoutPage extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     console.log("submitted");
@@ -22,8 +22,8 @@ export default class CheckoutPage extends React.Component {
         </div>
         <div className="order-placement-container">
           <div className="small-content-container">
-            <h3 className="plan-info">Selected Plan: {getPlanDetails(store.getState().newAccountType)}</h3>
-            <h3 className="plan-info">Price: ${getPlanPrice(store.getState().newAccountType)}.00</h3>
+            <h3 className="plan-info">Selected Plan: {getPlanDetails(this.props.newAccountType)}</h3>
+            <h3 className="plan-info">Price: ${getPlanPrice(this.props.newAccountType)}.00</h3>
             <form onSubmit={this.onSubmit}>
               <p className="fieldset-label">Name on Card:</p>
               <fieldset>
@@ -126,3 +126,12 @@ export default class CheckoutPage extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    newAccountType: state.newAccountType
+  }
+}
+
+// ConnectedCheckoutPage
+export default connect(mapStateToProps)(CheckoutPage)

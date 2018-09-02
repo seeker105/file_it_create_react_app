@@ -21,3 +21,6 @@ yarn-debug.log*
 yarn-error.log*
 
 Recommended_rules.txt
+
+.idea
+.idea/*

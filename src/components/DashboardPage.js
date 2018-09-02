@@ -1,26 +1,27 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Header from '../components/Header';
 import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
 import store from '../store/configureStore';
 import {saveAs} from 'file-saver/FileSaver';
-import {loadDashBoard, setFileNames} from '../actions/files';
+import {loadDashBoard, setFilesData} from '../actions/files';
 
-export default class DashboardPage extends React.Component {
+export class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
-    this.fileNames = store.getState().fileNames;
-    if (this.fileNames && this.fileNames.length === 0) {
+    this.filesData = props.filesData;
+    if (this.filesData && this.filesData.length === 0) {
       this.mainMessage = 'No files yet.'
     }
-    this.user = store.getState().credential.user
+    this.user = props.user;
     this.storageRef = firebase.storage().ref();
   }
 
-  onFileClick = (e, fileNameObj) => {
+  onFileClick = (e, fileDataObj) => {
     e.preventDefault();
 
-    const filename = fileNameObj.filename;
+    const filename = fileDataObj.filename;
     this.storageRef.child('files/' + this.user.uid + '/' + filename).getDownloadURL()
       .then( (url) => {
         const xhr = new XMLHttpRequest();
@@ -33,9 +34,9 @@ export default class DashboardPage extends React.Component {
         xhr.send();
       })
       .catch( (error) => {
-        alert("An error occured in the download/n" + error.message)
+        alert("An error occurred in the download/n" + error.message)
       })
-  }
+  };
 
 
 
@@ -48,21 +49,21 @@ export default class DashboardPage extends React.Component {
       const storagePromise = this.storageRef.child('files/' + this.user.uid + '/' + filename).delete()
       .catch((error) => {
         alert("There was a problem deleting the file: " + error.message);
-      })
-      // remove the filename from the list in the DB
+      });
+      // remove the fileDataObj from the list in the DB
       const fileListPromise = firebase.database().ref('users/' + this.user.uid + '/files/' + e.target.value).remove()
       .catch((error) => {
         alert("There was a problem removing the file reference: " + error.message);
-      })
-      // remove the filename from Redux store
-      const newFileNames = this.fileNames.filter(fileNameObj => fileNameObj.id !== e.target.value);
-      console.log("newFileNames = ", newFileNames);
-      store.dispatch(setFileNames(newFileNames));
+      });
+      // remove the fileDataObj from Redux store
+      const newFilesData = this.filesData.filter(fileNameObj => fileNameObj.id !== e.target.value);
+      console.log("newFilesData = ", newFilesData);
+      store.dispatch(setFilesData(newFilesData));
       // After the Promises finish, reload the page to display correct data
       Promise.all([storagePromise, fileListPromise])
       .then(loadDashBoard());
     }
-  }
+  };
 
   render () {
     return (
@@ -79,24 +80,24 @@ export default class DashboardPage extends React.Component {
         <div className="content-container">
           {this.mainMessage && <p>{this.mainMessage}</p>}
           <div className="files-list">
-            {store.getState().fileNames.map( (filenameObj, x) => {
+            {this.props.filesData.map( (fileDataObj, x) => {
               return (
-                <div className="file-control" key={filenameObj.id}>
-                  <a href="/" onClick={(e) => this.onFileClick(e, filenameObj)} className="file-link">
+                <div className="file-control" key={fileDataObj.id}>
+                  <a href="/" onClick={(e) => this.onFileClick(e, fileDataObj)} className="file-link">
                     <div className="file">
                       <div className="file-icon">
                         <ion-icon name="document"></ion-icon>
                       </div>
                       <div className="file-name">
-                        {filenameObj.filename}
+                        {fileDataObj.filename}
                       </div>
                     </div>
                   </a>
                   <button
                     type="button"
-                    name={filenameObj.filename}
+                    name={fileDataObj.filename}
                     onClick={this.onDeleteClick}
-                    value={filenameObj.id}
+                    value={fileDataObj.id}
                     className="delete-button">
                     Delete File
                   </button>
@@ -109,3 +110,13 @@ export default class DashboardPage extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    filesData: state.filesData,
+    user: state.credential.user
+  }
+}
+
+// ConnectedDashBoardPage
+export default connect(mapStateToProps)(DashboardPage)

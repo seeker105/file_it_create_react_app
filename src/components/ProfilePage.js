@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import store from '../store/configureStore';
 import Header from './Header';
 import {getPlanDetails} from '../utilities/planData';
+import {connect} from 'react-redux';
 
-export default class ProfilePage extends React.Component {
+export class ProfilePage extends React.Component {
   render () {
     return (
       <div>
@@ -15,9 +15,9 @@ export default class ProfilePage extends React.Component {
           </div>
         </div>
         <div className="small-content-container">
-          <p><label>Name:</label> {store.getState().firstName} {store.getState().lastName}</p>
-          <p><label>Email:</label> {store.getState().email}</p>
-          <p><label>Account Type:</label> {getPlanDetails(store.getState().accountType)}</p>
+          <p><label>Name:</label> {this.props.firstName} {this.props.lastName}</p>
+          <p><label>Email:</label> {this.props.email}</p>
+          <p><label>Account Type:</label> {getPlanDetails(this.props.accountType)}</p>
           <Link to="/edit-profile-page" className="button">Change Name</Link><br />
           <Link to="/change-email-page" className="button">Change Email</Link><br />
           <Link to="/change-password-page" className="button">Change Password</Link><br />
@@ -28,3 +28,15 @@ export default class ProfilePage extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    firstName: state.firstName,
+    lastName: state.lastName,
+    email: state.email,
+    accountType: state.accountType
+  }
+}
+
+// ConnectedProfilePage
+export default connect(mapStateToProps)(ProfilePage);

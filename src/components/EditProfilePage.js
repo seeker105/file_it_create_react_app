@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Header from './Header';
 import store from '../store/configureStore';
 import {Link} from 'react-router-dom';
@@ -6,7 +7,7 @@ import firebase from '../firebase/firebase';
 import {history} from '../App';
 import {storeUserData} from '../actions/profile';
 
-export default class EditProfilePage extends React.Component {
+export class EditProfilePage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -25,10 +26,6 @@ export default class EditProfilePage extends React.Component {
     if (!firstName || !lastName) {
       this.setState(() => ({error: "First and last names are both required."}))
     } else {
-      // user.updateProfile({
-      //   displayName: firstName
-      // }).catch()
-
       user.updateProfile({
         displayName: firstName
       })
@@ -57,9 +54,9 @@ export default class EditProfilePage extends React.Component {
             <div className="form-container">
               {this.state.error && <p className="form-error">{this.state.error}</p>}
               <label className="label-style">First Name</label>
-              <input type="text" placeholder="First Name" id="edit-profile-form-first-name-field" defaultValue={store.getState().firstName} className="input-style"/>
+              <input type="text" placeholder="First Name" id="edit-profile-form-first-name-field" defaultValue={this.props.firstName} className="input-style"/>
               <label className="label-style">Last Name</label>
-              <input type="text" placeholder="Last Name" id="edit-profile-form-last-name-field" defaultValue={store.getState().lastName} className="input-style"/>
+              <input type="text" placeholder="Last Name" id="edit-profile-form-last-name-field" defaultValue={this.props.lastName} className="input-style"/>
             </div>
             <button className="button">Submit</button>
           </form>
@@ -69,3 +66,13 @@ export default class EditProfilePage extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    firstName: state.firstName,
+    lastName: state.lastName
+  }
+}
+
+// ConnectedEditProfilePage
+export default connect(mapStateToProps)(EditProfilePage);
