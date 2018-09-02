@@ -11,7 +11,7 @@ export class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
     this.filesData = props.filesData;
-    if (this.filesData && this.filesData.length === 0) {
+    if (!this.filesData || this.filesData.length === 0) {
       this.mainMessage = 'No files yet.'
     }
     this.user = props.user;
