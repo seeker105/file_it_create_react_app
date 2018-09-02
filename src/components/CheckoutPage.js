@@ -5,11 +5,13 @@ import Header from './Header';
 import {getPlanPrice, getPlanDetails} from '../utilities/planData';
 import {history} from '../App';
 import {setAccountType} from "../actions/profile";
+import firebase from '../firebase/firebase';
 
 export class CheckoutPage extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     store.dispatch(setAccountType(this.props.newAccountType));
+    firebase.database().ref('users/' + this.props.user.uid + '/accountType').set(this.props.newAccountType)
     console.log("submitted");
     history.push('/order-confirmation-page');
   }
@@ -132,7 +134,8 @@ export class CheckoutPage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    newAccountType: state.newAccountType
+    newAccountType: state.newAccountType,
+    user: state.credential.user
   }
 }
 
