@@ -3,9 +3,9 @@ import firebase from '../firebase/firebase';
 import {Link} from 'react-router-dom';
 import Header from './Header';
 import {loadDashBoard} from '../actions/files';
-import store from '../store/configureStore';
+import {connect} from 'react-redux';
 
-export default class FileUploadPage extends React.Component {
+export class FileUploadPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -15,7 +15,7 @@ export default class FileUploadPage extends React.Component {
   }
 
   uploadFile = (file) => {
-    const user = store.getState().credential.user;
+    const user = this.props.user;
     const storage = firebase.storage();
     const storageRef = storage.ref();
     const filesRef = storageRef.child('files/' + user.uid + '/' + file.name);
@@ -46,11 +46,11 @@ export default class FileUploadPage extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const user = store.getState().credential.user;
+    const user = this.props.user;
     const file = document.getElementById('file-upload-page-file-input').files[0];
 
     if (file) {
-      const filesData = store.getState().filesData;
+      const filesData = this.props.filesData;
       if (this.filenameIsFound(filesData, file.name)) {
         this.processOverwriteCheck(file);
       } else {
@@ -88,3 +88,14 @@ export default class FileUploadPage extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.credential.user,
+    filesData: state.filesData
+  }
+}
+
+
+// ConnectedFileUploadPage
+export default connect(mapStateToProps)(FileUploadPage);
