@@ -1,5 +1,4 @@
 import React from 'react';
-import '../css/LandingPage.css';
 import {history} from '../App';
 
 export default class LandingPage extends React.Component {
