@@ -1,12 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Header from './Header';
 import firebase from '../firebase/firebase';
 import {history} from '../App';
 import store from '../store/configureStore';
 import {updateEmail} from '../actions/profile';
 
-export default class ChangeEmailPage extends React.Component {
+export class ChangeEmailPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,7 +48,7 @@ export default class ChangeEmailPage extends React.Component {
             <div className="form-container">
               {this.state.error && <p className="form-error">{this.state.error}</p>}
               <label className="label-style">Enter new Email</label>
-              <input type="text" placeholder="Email" id="change-email-form-new-email-field" defaultValue={store.getState().email} className="input-style"/>
+              <input type="text" placeholder="Email" id="change-email-form-new-email-field" defaultValue={this.props.email} className="input-style"/>
             </div>
             <button className="button">Submit</button>
           </form>
@@ -57,3 +58,12 @@ export default class ChangeEmailPage extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    email: state.email
+  }
+}
+
+// ConnectedChangeEmailPage
+export default connect(mapStateToProps)(ChangeEmailPage);
