@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Header from '../components/Header';
 import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
@@ -6,14 +7,14 @@ import store from '../store/configureStore';
 import {saveAs} from 'file-saver/FileSaver';
 import {loadDashBoard, setFilesData} from '../actions/files';
 
-export default class DashboardPage extends React.Component {
+export class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
-    this.filesData = store.getState().filesData;
+    this.filesData = props.filesData;
     if (this.filesData && this.filesData.length === 0) {
       this.mainMessage = 'No files yet.'
     }
-    this.user = store.getState().credential.user;
+    this.user = props.user;
     this.storageRef = firebase.storage().ref();
   }
 
@@ -79,7 +80,7 @@ export default class DashboardPage extends React.Component {
         <div className="content-container">
           {this.mainMessage && <p>{this.mainMessage}</p>}
           <div className="files-list">
-            {store.getState().filesData.map( (fileDataObj, x) => {
+            {this.props.filesData.map( (fileDataObj, x) => {
               return (
                 <div className="file-control" key={fileDataObj.id}>
                   <a href="/" onClick={(e) => this.onFileClick(e, fileDataObj)} className="file-link">
@@ -109,3 +110,13 @@ export default class DashboardPage extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    filesData: state.filesData,
+    user: state.credential.user
+  }
+}
+
+// ConnectedDashBoardPage
+export default connect(mapStateToProps)(DashboardPage)
