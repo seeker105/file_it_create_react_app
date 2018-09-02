@@ -50,12 +50,12 @@ export default class FileUploadPage extends React.Component {
     const file = document.getElementById('file-upload-page-file-input').files[0];
 
     if (file) {
-      const fileNames = store.getState().fileNames;
-      if (this.filenameIsFound(fileNames, file.name)) {
+      const filesData = store.getState().filesData;
+      if (this.filenameIsFound(filesData, file.name)) {
         this.processOverwriteCheck(file);
       } else {
         this.uploadFile(file);
-        // Add filename to fileNames list
+        // Add filename to filesData list
         firebase.database().ref('users/' + user.uid + '/files').push(file.name);
         loadDashBoard();
       }

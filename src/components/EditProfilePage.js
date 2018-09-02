@@ -25,10 +25,6 @@ export default class EditProfilePage extends React.Component {
     if (!firstName || !lastName) {
       this.setState(() => ({error: "First and last names are both required."}))
     } else {
-      // user.updateProfile({
-      //   displayName: firstName
-      // }).catch()
-
       user.updateProfile({
         displayName: firstName
       })

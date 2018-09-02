@@ -1,7 +1,8 @@
 import React from 'react';
-import Header from '../components/Header';
+import {Header} from '../components/Header';
 import {MemoryRouter} from 'react-router';
-import {mount} from 'enzyme';
+import {Provider} from 'react-redux';
+import {mount, shallow} from 'enzyme';
 import store from '../store/configureStore';
 import {storeUserData} from '../actions/profile';
 
@@ -19,5 +20,5 @@ test('should show page layout', () => {
         <Header/>
     </MemoryRouter>
   );
-  expect(wrapper.find('a').length).toBe(3)
+  expect(wrapper.find('button').length).toBe(1)
 });
