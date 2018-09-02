@@ -2,37 +2,33 @@ import {history} from '../App';
 import firebase from '../firebase/firebase';
 import store from '../store/configureStore';
 
-export const setFileNames = (fileNames) => {
+export const setFilesData = (filesData) => {
   return {
-    type: 'SET_FILENAMES',
-    fileNames
+    type: 'SET_FILES_DATA',
+    filesData
   }
-}
+};
 
-export const startLoadFileNames = () => {
+export const startLoadFilesData = () => {
   return (dispatch, getState) => {
     const user = getState().credential.user;
     return firebase.database().ref('users/' + user.uid + '/files/').once('value')
       .then((snapshot) => {
-        const fileNames = [];
+        const filesData = [];
         snapshot.forEach( (childSnapshot) => {
-          // console.log(childSnapshot.key);
-
-          fileNames.push({
+          filesData.push({
             id: childSnapshot.key,
             filename: childSnapshot.val()
           })
-
-          // fileNames.push(childSnapshot.val())
-        })
-        dispatch(setFileNames(fileNames));
+        });
+        dispatch(setFilesData(filesData));
       })
   }
-}
+};
 
 export const loadDashBoard = () => {
   history.push('/loading-page');
-  store.dispatch(startLoadFileNames()).then(() => {
+  store.dispatch(startLoadFilesData()).then(() => {
     history.push('/dashboard');
   })
-}
+};

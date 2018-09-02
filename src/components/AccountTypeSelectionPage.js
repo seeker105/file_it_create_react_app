@@ -18,20 +18,20 @@ export default class AccountTypeSelectionPage extends React.Component {
   }
 
   onRadioChange = (e) => {
-    const currentPrice = getPlanPrice(store.getState().accountType)
+    const currentPrice = getPlanPrice(store.getState().accountType);
     const newAccountType = e.target.value;
     const difference = getPlanPrice(newAccountType) - currentPrice;
     this.setState({
       accountType: newAccountType,
       difference
     })
-  }
+  };
 
   onSubmit = (e) => {
     e.preventDefault();
     store.dispatch(setOrderValues(this.state.accountType));
     history.push('/checkout')
-  }
+  };
 
   render () {
     return (

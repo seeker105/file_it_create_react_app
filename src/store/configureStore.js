@@ -20,26 +20,26 @@ const rootReducer = (state = {}, action) => {
       return {
         ...state,
         credential: action.credential
-      }
+      };
     case 'UPDATE_EMAIL':
         return {
           ...state,
           email: action.email
-        }
-    case 'SET_FILENAMES':
+        };
+    case 'SET_FILES_DATA':
       return {
         ...state,
-        fileNames: action.fileNames
-      }
+        filesData: action.filesData
+      };
     case 'SET_ORDER_VALUES':
       return {
         ...state,
         newAccountType: action.accountType
-      }
+      };
     default:
       return state;
   }
-}
+};
 
 const persistConfig = {
   key: 'root',
