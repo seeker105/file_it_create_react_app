@@ -1,11 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import store from '../store/configureStore';
 import Header from './Header';
 import firebase from '../firebase/firebase';
 import {logoutGenerator} from '../actions/auth';
+import {connect} from 'react-redux';
 
-export default class DeleteAccountPage extends React.Component {
+export class DeleteAccountPage extends React.Component {
 
   onDeleteSelected = (e) => {
     console.log('button clicked');
@@ -13,7 +13,7 @@ export default class DeleteAccountPage extends React.Component {
     const user = firebase.auth().currentUser;
     firebase.database().ref('users/' + user.uid).remove()
       .then(() => {
-        store.dispatch(logoutGenerator());
+        this.props.logout();
         return user.delete();
       })
       .catch(() => {
@@ -41,3 +41,12 @@ export default class DeleteAccountPage extends React.Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(logoutGenerator())
+  }
+}
+
+// ConnectedDeleteAccountPage
+export default connect(undefined, mapDispatchToProps)(DeleteAccountPage)
