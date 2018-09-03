@@ -1,5 +1,6 @@
 .files-list {
   display: flex;
+  flex-flow: wrap;
 }
 
 .file-control {
