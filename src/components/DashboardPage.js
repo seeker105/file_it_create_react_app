@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import Header from '../components/Header';
 import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
-import store from '../store/configureStore';
 import {saveAs} from 'file-saver/FileSaver';
 import {loadDashBoard, setFilesData} from '../actions/files';
 
@@ -45,20 +44,24 @@ export class DashboardPage extends React.Component {
     console.log(e.target.value);
     const filename = e.target.name;
     if (window.confirm(filename + ' will be Deleted. This CANNOT be undone. Are you sure?')) {
+
       // first remove the file from storage
       const storagePromise = this.storageRef.child('files/' + this.user.uid + '/' + filename).delete()
       .catch((error) => {
         alert("There was a problem deleting the file: " + error.message);
       });
+
       // remove the fileDataObj from the list in the DB
       const fileListPromise = firebase.database().ref('users/' + this.user.uid + '/files/' + e.target.value).remove()
       .catch((error) => {
         alert("There was a problem removing the file reference: " + error.message);
       });
+
       // remove the fileDataObj from Redux store
       const newFilesData = this.filesData.filter(fileNameObj => fileNameObj.id !== e.target.value);
       console.log("newFilesData = ", newFilesData);
-      store.dispatch(setFilesData(newFilesData));
+      this.props.setFilesData(newFilesData);
+
       // After the Promises finish, reload the page to display correct data
       Promise.all([storagePromise, fileListPromise])
       .then(loadDashBoard());
@@ -116,7 +119,13 @@ const mapStateToProps = (state) => {
     filesData: state.filesData,
     user: state.credential.user
   }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setFilesData: (newFilesData) => dispatch(setFilesData(newFilesData))
+  }
 }
 
 // ConnectedDashBoardPage
-export default connect(mapStateToProps)(DashboardPage)
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage)
