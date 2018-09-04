@@ -1,5 +1,4 @@
 import React from 'react';
-import store from '../store/configureStore';
 import {connect} from 'react-redux';
 import Header from './Header';
 import {getPlanPrice} from '../utilities/planData';
@@ -9,7 +8,6 @@ import {history} from '../App';
 export class AccountTypeSelectionPage extends React.Component {
   constructor (props) {
     super(props);
-    // const accountType = store.getState().accountType;
     const accountType = props.accountType;
 
     this.state = {
@@ -20,7 +18,6 @@ export class AccountTypeSelectionPage extends React.Component {
   }
 
   onRadioChange = (e) => {
-    // const currentPrice = getPlanPrice(store.getState().accountType);
     const currentPrice = getPlanPrice(this.props.accountType);
     const newAccountType = e.target.value;
     const difference = getPlanPrice(newAccountType) - currentPrice;
@@ -32,8 +29,9 @@ export class AccountTypeSelectionPage extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    store.dispatch(setOrderValues(this.state.accountType));
-    history.push('/checkout')
+    // store.dispatch(setOrderValues(this.state.accountType));
+    this.props.onSubmit(this.state.accountType);
+    history.push('/checkout');
   };
 
   render () {
@@ -119,5 +117,18 @@ const mapStateToProps = (state) => {
   }
 };
 
+// The mapStateToProps function has the result of store.getState() automatically passed in as the first parameter.
+// The mapDispatchToProps function has the store.dispatch function automatically passed in as the first parameter.
+// The mapDispatchToProps function returns an object whose properties become available as props on our component.
+// To use it, create an arrow function that accepts whatever external input you want to pass into the function (or
+// it's nested functions). Have it call the dispatch function (and any action generators). Thus the prop becomes a
+// function that, when invoked, calls store.dispatch with the appropriate action generator and passes into the action
+// generator the value that you supplied.
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSubmit: (accountType) => dispatch(setOrderValues(accountType))
+  }
+};
+
 // ConnectedAccountTypeSelectionPage
-export default connect(mapStateToProps)(AccountTypeSelectionPage)
+export default connect(mapStateToProps, mapDispatchToProps)(AccountTypeSelectionPage)

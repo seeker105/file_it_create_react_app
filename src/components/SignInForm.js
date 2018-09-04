@@ -3,8 +3,9 @@ import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
 import store from '../store/configureStore';
 import {storeUserCredential} from '../actions/profile';
+import {connect} from 'react-redux';
 
-export default class SignInForm extends React.Component {
+export class SignInForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +21,7 @@ export default class SignInForm extends React.Component {
 
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then((credential) => {
-        store.dispatch(storeUserCredential(credential));
+        this.props.storeUserCredential(credential);
       })
       .catch((error) => {
         this.setState(() => ({error: error.message}))
@@ -52,3 +53,12 @@ export default class SignInForm extends React.Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    storeUserCredential: (credential) => dispatch(storeUserCredential(credential))
+  }
+}
+
+// ConnectedSignInForm
+export default connect(undefined, mapDispatchToProps)(SignInForm)

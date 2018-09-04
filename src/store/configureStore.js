@@ -16,6 +16,12 @@ const rootReducer = (state = {}, action) => {
         email: action.email,
         accountType: action.accountType
       };
+    case 'STORE_USER_NAME':
+      return {
+        ...state,
+        firstName: action.firstName,
+        lastName: action.lastName
+      };
     case 'STORE_USER_CREDENTIAL':
       return {
         ...state,

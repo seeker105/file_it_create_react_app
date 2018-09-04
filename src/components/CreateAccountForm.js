@@ -2,9 +2,9 @@ import React from 'react';
 import firebase from '../firebase/firebase';
 import {Link} from 'react-router-dom';
 import {storeUserData, storeUserCredential} from '../actions/profile';
-import store from '../store/configureStore';
+import {connect} from 'react-redux';
 
-export default class CreateAccountForm extends React.Component {
+export class CreateAccountForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -32,8 +32,8 @@ export default class CreateAccountForm extends React.Component {
           credential.user.updateProfile({
             displayName: firstName
           })
-          store.dispatch(storeUserData(firstName, lastName, email, accountType));
-          store.dispatch(storeUserCredential(credential));
+          this.props.storeUserData(firstName, lastName, email, accountType);
+          this.props.storeUserCredential(credential);
           firebase.database().ref('users/' + credential.user.uid).set({
             lastName,
             accountType
@@ -74,3 +74,13 @@ export default class CreateAccountForm extends React.Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    storeUserData: (firstName, lastName, email, accountType) => dispatch(storeUserData(firstName, lastName, email, accountType)),
+    storeUserCredential: (credential) => dispatch(storeUserCredential(credential))
+  }
+};
+
+// ConnectedCreateAccountForm
+export default connect(undefined, mapDispatchToProps)(CreateAccountForm)
