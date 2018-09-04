@@ -1,5 +1,4 @@
 import React from 'react';
-// import store from '../store/configureStore';
 import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
 import {history} from '../App';
@@ -11,12 +10,12 @@ export class Header extends React.Component {
     e.preventDefault();
     firebase.auth().signOut();
     history.push('/');
-  }
+  };
 
   onDashboardNavigation = (e) => {
     e.preventDefault();
     loadDashBoard();
-  }
+  };
 
   render () {
     return (
