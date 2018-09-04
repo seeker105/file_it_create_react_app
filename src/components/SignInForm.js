@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import firebase from '../firebase/firebase';
+import firebase, {signInWithEmailAndPassword} from '../firebase/firebase';
 import {storeUserCredential} from '../actions/profile';
 import {connect} from 'react-redux';
 
@@ -18,13 +18,16 @@ export class SignInForm extends React.Component {
     const email = document.getElementById('create_form_email_field').value;
     const password = document.getElementById('create_form_password_field').value;
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
+    // firebase.auth().signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(email, password)
       .then((credential) => {
         this.props.storeUserCredential(credential);
       })
       .catch((error) => {
         this.setState(() => ({error: error.message}))
       })
+    // this.props.signInWithEmailPassword(email, password)()
+
   };
 
   render () {

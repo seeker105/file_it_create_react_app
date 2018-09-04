@@ -16,3 +16,7 @@ const config = {
 firebase.initializeApp(config);
 
 export default firebase;
+
+export const signInWithEmailAndPassword = (email, password) => {
+  return firebase.auth().signInWithEmailAndPassword(email, password)
+}
