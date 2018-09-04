@@ -8,7 +8,6 @@ export class ProfilePage extends React.Component {
   render () {
     return (
       <div>
-        <Header />
         <div className="page-header">
           <div className="content-container">
             <h1 className="page-header__title">Profile Page</h1>

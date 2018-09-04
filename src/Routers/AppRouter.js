@@ -1,6 +1,7 @@
 import '../css/App.css';
 import React from 'react';
 import { Router, Switch, Route} from 'react-router-dom';
+import PrivateRoute from '../Routers/PrivateRoute';
 import LandingPage from '../components/LandingPage';
 import CreateAccountForm from '../components/CreateAccountForm';
 import DashboardPage from '../components/DashboardPage';
@@ -23,19 +24,19 @@ const AppRouter = (props) => (
       <Switch>
         <Route path="/" component={LandingPage} exact={true}/>
         <Route path="/create-account" component={CreateAccountForm} />
-        <Route path="/dashboard" component={DashboardPage} />
         <Route path="/sign-in-form" component={SignInForm} />
-        <Route path="/profile-page" component={ProfilePage} />
-        <Route path="/change-password-page" component={ChangePasswordPage} />
-        <Route path="/change-email-page" component={ChangeEmailPage} />
-        <Route path="/edit-profile-page" component={EditProfilePage} />
-        <Route path="/reauthorization-form" component={ReauthorizationForm} />
-        <Route path="/delete-account-page" component={DeleteAccountPage} />
-        <Route path="/file-upload-page" component={FileUploadPage} />
         <Route path="/loading-page" component={LoadingPage} />
-        <Route path="/select-account-type" component={AccountTypeSelectionPage} />
-        <Route path="/checkout" component={CheckoutPage} />
-        <Route path="/order-confirmation-page" component={OrderConfirmationPage} />
+        <PrivateRoute path="/dashboard" component={DashboardPage} />
+        <PrivateRoute path="/profile-page" component={ProfilePage} />
+        <PrivateRoute path="/change-password-page" component={ChangePasswordPage} />
+        <PrivateRoute path="/change-email-page" component={ChangeEmailPage} />
+        <PrivateRoute path="/edit-profile-page" component={EditProfilePage} />
+        <PrivateRoute path="/reauthorization-form" component={ReauthorizationForm} />
+        <PrivateRoute path="/delete-account-page" component={DeleteAccountPage} />
+        <PrivateRoute path="/file-upload-page" component={FileUploadPage} />
+        <PrivateRoute path="/select-account-type" component={AccountTypeSelectionPage} />
+        <PrivateRoute path="/checkout" component={CheckoutPage} />
+        <PrivateRoute path="/order-confirmation-page" component={OrderConfirmationPage} />
       </Switch>
     </Router>
   </div>
