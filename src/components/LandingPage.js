@@ -1,14 +1,14 @@
 import React from 'react';
-import {history} from '../App';
 
 export default class LandingPage extends React.Component {
   onCreateAccountClick = () => {
-    history.push("/create-account")
+    this.props.history.push("/create-account")
   }
 
   onSignInWithEmailClick = () => {
-    history.push("/sign-in-form")
-  }
+    // history.push("/sign-in-form")
+    this.props.history.push("/sign-in-form");
+  };
 
   render() {
     return (
