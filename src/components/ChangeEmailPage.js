@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Header from './Header';
 import firebase from '../firebase/firebase';
-import {history} from '../App';
 import store from '../store/configureStore';
 import {updateEmail} from '../actions/profile';
 
@@ -23,11 +22,11 @@ export class ChangeEmailPage extends React.Component {
     user.updateEmail(email)
       .then(() => {
         store.dispatch(updateEmail(email));
-        history.goBack();
+        this.props.history.goBack();
       })
       .catch((error) => {
         if (error.code === 'auth/requires-recent-login') {
-          history.push('/reauthorization-form')
+          this.props.history.push('/reauthorization-form')
         } else {
           this.setState(() => ({error: error.message}));
         }
