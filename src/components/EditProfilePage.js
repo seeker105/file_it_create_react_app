@@ -1,10 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Header from './Header';
-import store from '../store/configureStore';
 import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
-import {history} from '../App';
 import {storeUserName} from '../actions/profile';
 
 export class EditProfilePage extends React.Component {
@@ -32,7 +30,7 @@ export class EditProfilePage extends React.Component {
         .then(() => {
           firebase.database().ref('users/' + user.uid + '/lastName').set(lastName);
           this.props.storeUserName(firstName,lastName);
-          history.push('/profile-page');
+          this.props.history.push('/profile-page');
         })
         .catch((error) => {
           alert(error.message)

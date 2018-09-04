@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import Header from './Header';
 import {getPlanPrice} from '../utilities/planData';
 import {setOrderValues} from '../actions/profile';
-import {history} from '../App';
 
 export class AccountTypeSelectionPage extends React.Component {
   constructor (props) {
@@ -29,9 +28,8 @@ export class AccountTypeSelectionPage extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    // store.dispatch(setOrderValues(this.state.accountType));
     this.props.onSubmit(this.state.accountType);
-    history.push('/checkout');
+    this.props.history.push('/checkout');
   };
 
   render () {

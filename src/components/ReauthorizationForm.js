@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
-import {history} from '../App';
 import Header from './Header';
 
 export default class ReauthorizationForm extends React.Component {
@@ -22,7 +21,7 @@ export default class ReauthorizationForm extends React.Component {
     const user = firebase.auth().currentUser;
     user.reauthenticateAndRetrieveDataWithCredential(credential)
       .then(() => {
-        history.goBack();
+        this.props.history.goBack();
       })
       .catch((error) => {
         this.setState(() => ({error: error.message}));
