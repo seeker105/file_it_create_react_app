@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Header from './Header';
 import {getPlanPrice, getPlanDetails} from '../utilities/planData';
-import {history} from '../App';
 import {setAccountType} from "../actions/profile";
 import firebase from '../firebase/firebase';
 
@@ -12,7 +11,7 @@ export class CheckoutPage extends React.Component {
     this.props.onSubmit(this.props.newAccountType);
     firebase.database().ref('users/' + this.props.user.uid + '/accountType').set(this.props.newAccountType)
     console.log("submitted");
-    history.push('/order-confirmation-page');
+    this.props.history.push('/order-confirmation-page');
   }
 
   render () {
