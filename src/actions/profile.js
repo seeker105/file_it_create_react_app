@@ -9,6 +9,14 @@ export const storeUserData = (firstName, lastName, email, accountType) => {
   }
 };
 
+export const storeUserName = (firstName, lastName) => {
+  return {
+    type: 'STORE_USER_NAME',
+    firstName,
+    lastName
+  }
+}
+
 export const storeUserCredential = (credential) => {
   return {
     type: 'STORE_USER_CREDENTIAL',

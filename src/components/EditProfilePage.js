@@ -5,7 +5,7 @@ import store from '../store/configureStore';
 import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
 import {history} from '../App';
-import {storeUserData} from '../actions/profile';
+import {storeUserName} from '../actions/profile';
 
 export class EditProfilePage extends React.Component {
   constructor(props) {
@@ -31,7 +31,7 @@ export class EditProfilePage extends React.Component {
       })
         .then(() => {
           firebase.database().ref('users/' + user.uid + '/lastName').set(lastName);
-          store.dispatch(storeUserData(firstName, lastName, user.email));
+          this.props.storeUserName(firstName,lastName);
           history.push('/profile-page');
         })
         .catch((error) => {
@@ -72,7 +72,13 @@ const mapStateToProps = (state) => {
     firstName: state.firstName,
     lastName: state.lastName
   }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    storeUserName: (firstName, lastName) => dispatch(storeUserName(firstName, lastName))
+  }
 }
 
 // ConnectedEditProfilePage
-export default connect(mapStateToProps)(EditProfilePage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfilePage);
