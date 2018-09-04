@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import firebase from '../firebase/firebase';
-import store from '../store/configureStore';
 import {updateEmail} from '../actions/profile';
 
 export class ChangeEmailPage extends React.Component {
@@ -20,7 +19,7 @@ export class ChangeEmailPage extends React.Component {
     console.log(email);
     user.updateEmail(email)
       .then(() => {
-        store.dispatch(updateEmail(email));
+        this.props.updateEmail(email);
         this.props.history.goBack();
       })
       .catch((error) => {
@@ -60,7 +59,13 @@ const mapStateToProps = (state) => {
   return {
     email: state.email
   }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateEmail: (email) => dispatch(updateEmail(email))
+  }
 }
 
 // ConnectedChangeEmailPage
-export default connect(mapStateToProps)(ChangeEmailPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ChangeEmailPage);
