@@ -9,7 +9,7 @@ export class DeleteAccountPage extends React.Component {
 
   onDeleteSelected = (e) => {
     console.log('button clicked');
-
+    if (window.confirm("This action will close your account and all files stored in your account will be PERMANENTLY lost. Are you sure?")) {
     const user = firebase.auth().currentUser;
     firebase.database().ref('users/' + user.uid).remove()
       .then(() => {
@@ -19,6 +19,8 @@ export class DeleteAccountPage extends React.Component {
       .catch(() => {
         alert("There was a problem closing your account.")
       })
+    } 
+
   }
 
   render () {
