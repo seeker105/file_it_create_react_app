@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
-import {history} from '../App';
 import {loadDashBoard} from '../actions/files';
 import {connect} from 'react-redux';
 
@@ -9,7 +8,6 @@ export class Header extends React.Component {
   onLogoutClick = (e) => {
     e.preventDefault();
     firebase.auth().signOut();
-    history.push('/');
   };
 
   onDashboardNavigation = (e) => {
