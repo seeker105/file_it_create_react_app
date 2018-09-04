@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Header from './Header';
 import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase';
 import {storeUserName} from '../actions/profile';

@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Header from './Header';
 import {getPlanPrice, getPlanDetails} from '../utilities/planData';
 import {setAccountType} from "../actions/profile";
 import firebase from '../firebase/firebase';
