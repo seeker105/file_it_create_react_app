@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Header from './Header';
 import firebase from '../firebase/firebase';
-import {history} from '../App';
 
 export default class ChangePasswordPage extends React.Component {
   constructor(props) {
@@ -19,11 +18,11 @@ export default class ChangePasswordPage extends React.Component {
 
     user.updatePassword(newPassword)
       .then(() => {
-        history.goBack();
+        this.props.history.goBack();
       })
       .catch((error) => {
         if (error.code === 'auth/requires-recent-login') {
-          history.push('/reauthorization-form')
+          this.props.history.push('/reauthorization-form')
         } else {
           this.setState(() => ({error: error.message}));
         }
