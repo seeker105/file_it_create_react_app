@@ -1,5 +1,5 @@
 import React from 'react';
-import ProfilePage from '../components/ProfilePage';
+import {ProfilePage} from '../components/ProfilePage';
 import {MemoryRouter} from 'react-router';
 import {mount, shallow} from 'enzyme';
 

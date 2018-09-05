@@ -1,5 +1,5 @@
 import React from 'react';
-import DeleteAccountPage from '../components/DeleteAccountPage';
+import {DeleteAccountPage} from '../components/DeleteAccountPage';
 import {MemoryRouter} from 'react-router';
 import {mount, shallow} from 'enzyme';
 

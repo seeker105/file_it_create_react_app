@@ -1,5 +1,5 @@
 import React from 'react';
-import EditProfilePage from '../components/EditProfilePage';
+import {EditProfilePage} from '../components/EditProfilePage';
 import {MemoryRouter} from 'react-router';
 import {mount, shallow} from 'enzyme';
 

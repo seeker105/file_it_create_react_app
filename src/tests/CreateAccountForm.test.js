@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateAccountForm from '../components/CreateAccountForm';
+import {CreateAccountForm} from '../components/CreateAccountForm';
 import {MemoryRouter} from 'react-router';
 import {mount, shallow} from 'enzyme';
 
