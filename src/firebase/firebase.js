@@ -30,3 +30,12 @@ export const reauthenticate = (email, password) => {
 export const databaseSignOut = () => {
   firebase.auth().signOut();
 }
+
+export const uploadFile = (file) => {
+  const user = firebase.auth().currentUser;
+  const storage = firebase.storage();
+  const storageRef = storage.ref();
+  const filesRef = storageRef.child('files/' + user.uid + '/' + file.name);
+  filesRef.put(file);
+  firebase.database().ref('users/' + user.uid + '/files').push(file.name);
+}
