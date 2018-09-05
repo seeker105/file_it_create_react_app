@@ -26,3 +26,7 @@ export const reauthenticate = (email, password) => {
   const user = firebase.auth().currentUser;
   return user.reauthenticateAndRetrieveDataWithCredential(credential)
 }
+
+export const databaseSignOut = () => {
+  firebase.auth().signOut();
+}

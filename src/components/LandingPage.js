@@ -6,7 +6,6 @@ export default class LandingPage extends React.Component {
   }
 
   onSignInWithEmailClick = () => {
-    // history.push("/sign-in-form")
     this.props.history.push("/sign-in-form");
   };
 

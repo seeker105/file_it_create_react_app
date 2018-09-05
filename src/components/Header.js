@@ -1,13 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import firebase from '../firebase/firebase';
 import {loadDashBoard} from '../actions/files';
+import {databaseSignOut} from "../firebase/firebase";
 import {connect} from 'react-redux';
 
 export class Header extends React.Component {
   onLogoutClick = (e) => {
     e.preventDefault();
-    firebase.auth().signOut();
+    databaseSignOut();
   };
 
   onDashboardNavigation = (e) => {
