@@ -1,5 +1,3 @@
-import firebase from '../firebase/firebase';
-
 
 export const storeUserData = (firstName, lastName, email, accountType) => {
   return {
