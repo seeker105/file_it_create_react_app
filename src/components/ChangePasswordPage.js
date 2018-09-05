@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import firebase from '../firebase/firebase';
+import {storeNewPassword} from "../firebase/firebase";
 
 export default class ChangePasswordPage extends React.Component {
   constructor(props) {
@@ -13,9 +13,8 @@ export default class ChangePasswordPage extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     const newPassword = document.getElementById("change-password-form-new-password-field").value;
-    const user = firebase.auth().currentUser;
 
-    user.updatePassword(newPassword)
+    storeNewPassword(newPassword)
       .then(() => {
         this.props.history.goBack();
       })

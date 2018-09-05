@@ -84,4 +84,9 @@ export const storeLastNameAccountType = (user, lastName, accountType) => {
 export const storeAccountType = (accountType) => {
   const user = firebase.auth().currentUser;
   return firebase.database().ref('users/' + user.uid + '/accountType').set(accountType)
-}
+};
+
+export const storeNewPassword = (password) => {
+  const user = firebase.auth().currentUser;
+  return user.updatePassword(password)
+};
