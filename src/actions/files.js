@@ -11,7 +11,8 @@ export const setFilesData = (filesData) => {
 
 export const startLoadFilesData = () => {
   return (dispatch, getState) => {
-    const user = getState().credential.user;
+    // const user = getState().credential.user;
+    const user = firebase.auth().currentUser;
     return firebase.database().ref('users/' + user.uid + '/files/').once('value')
       .then((snapshot) => {
         const filesData = [];
