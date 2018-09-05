@@ -14,5 +14,5 @@ test('should display page layout', () => {
   //   </MemoryRouter>
   // );
   const wrapper = shallow(<CreateAccountForm/>)
-  expect(wrapper.find('input').length).toBe(4)
+  expect(wrapper).toMatchSnapshot();
 });

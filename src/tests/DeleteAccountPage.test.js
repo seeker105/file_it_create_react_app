@@ -14,6 +14,5 @@ test('should show page layout', () => {
   //   </MemoryRouter>
   // );
   const wrapper = shallow(<DeleteAccountPage/>)
-  expect(wrapper.find('button').length).toBe(1);
-  expect(wrapper.find('Link').length).toBe(1);
+  expect(wrapper).toMatchSnapshot();
 });

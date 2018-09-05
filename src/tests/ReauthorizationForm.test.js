@@ -14,9 +14,10 @@ test('should display page layout', () => {
   //   </MemoryRouter>
   // );
   const wrapper = shallow(<ReauthorizationForm/>)
-  expect(wrapper.find('input').length).toBe(2);
-  expect(wrapper.find('label').length).toBe(2);
-  expect(wrapper.find('label').at(0).text()).toBe('Email');
-  expect(wrapper.find('label').at(1).text()).toBe('Password');
+  // expect(wrapper.find('input').length).toBe(2);
+  // expect(wrapper.find('label').length).toBe(2);
+  // expect(wrapper.find('label').at(0).text()).toBe('Email');
+  // expect(wrapper.find('label').at(1).text()).toBe('Password');
+  expect(wrapper).toMatchSnapshot();
 
 });

@@ -14,8 +14,5 @@ test('should show page layout', () => {
   //   </MemoryRouter>
   // );
   const wrapper = shallow(<EditProfilePage/>)
-  expect(wrapper.find('label').length).toBe(2);
-  expect(wrapper.find('label').at(0).text()).toBe('First Name');
-  expect(wrapper.find('label').at(1).text()).toBe('Last Name');
-  expect(wrapper.find('input').length).toBe(2);
+  expect(wrapper).toMatchSnapshot();
 });

@@ -14,7 +14,5 @@ test('should display page layout', () => {
   //   </MemoryRouter>
   // );
   const wrapper = shallow(<ChangePasswordPage/>)
-  expect(wrapper.find('label').length).toBe(1)
-  expect(wrapper.find('label').text()).toBe("Enter new password")
-  expect(wrapper.find('input').length).toBe(1)
+  expect(wrapper).toMatchSnapshot();
 });
