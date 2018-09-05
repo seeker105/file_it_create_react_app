@@ -1,5 +1,5 @@
 import React from 'react';
-import ChangeEmailPage from '../components/ChangeEmailPage';
+import {ChangeEmailPage} from '../components/ChangeEmailPage';
 import {MemoryRouter} from 'react-router';
 import {mount, shallow} from 'enzyme';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import FileUploadPage from '../components/FileUploadPage';
+import {FileUploadPage} from '../components/FileUploadPage';
 import {MemoryRouter} from 'react-router';
 import {mount, shallow} from 'enzyme';
 
