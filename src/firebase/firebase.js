@@ -25,11 +25,11 @@ export const reauthenticate = (email, password) => {
   const credential = firebase.auth.EmailAuthProvider.credential(email, password);
   const user = firebase.auth().currentUser;
   return user.reauthenticateAndRetrieveDataWithCredential(credential)
-}
+};
 
 export const databaseSignOut = () => {
   firebase.auth().signOut();
-}
+};
 
 export const uploadFile = (file) => {
   const user = firebase.auth().currentUser;
@@ -51,7 +51,7 @@ export const changeName = (firstName, lastName) => {
 
 export const deleteAccount = () => {
   const user = firebase.auth().currentUser;
-  firebase.database().ref('users/' + user.uid).remove()
+  firebase.database().ref('users/' + user.uid).remove();
   user.delete()
 };
 
