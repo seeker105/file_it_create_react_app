@@ -69,3 +69,14 @@ export const removeFileData = (fileId) => {
   const user = firebase.auth().currentUser;
   return firebase.database().ref('users/' + user.uid + '/files/' + fileId).remove()
 };
+
+export const createUserWithEmailAndPassword = (email, password) => {
+  return firebase.auth().createUserWithEmailAndPassword(email, password)
+};
+
+export const storeLastNameAccountType = (user, lastName, accountType) => {
+  return firebase.database().ref('users/' + user.uid).set({
+    lastName,
+    accountType
+  });
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from '../firebase/firebase';
+import {createUserWithEmailAndPassword, storeLastNameAccountType} from '../firebase/firebase';
 import {Link} from 'react-router-dom';
 import {storeUserData, storeUserCredential} from '../actions/profile';
 import {connect} from 'react-redux';
@@ -27,23 +27,20 @@ export class CreateAccountForm extends React.Component {
     if (!firstName || !lastName) {
       this.setState(() => ({error: "Name is required"}))
     } else {
-      firebase.auth().createUserWithEmailAndPassword(email, password)
+      createUserWithEmailAndPassword(email, password)
         .then((credential) => {
           credential.user.updateProfile({
             displayName: firstName
-          })
+          });
           this.props.storeUserData(firstName, lastName, email, accountType);
           this.props.storeUserCredential(credential);
-          firebase.database().ref('users/' + credential.user.uid).set({
-            lastName,
-            accountType
-          });
+          storeLastNameAccountType(credential.user, lastName, accountType);
         })
         .catch((error) => {
           this.setState(() => ({error: error.message}))
         })
     }
-  }
+  };
 
   render () {
     return (
