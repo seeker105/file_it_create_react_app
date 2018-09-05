@@ -1,25 +1,18 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import firebase from '../firebase/firebase';
 import {logoutGenerator} from '../actions/auth';
+import {deleteAccount} from "../firebase/firebase";
 import {connect} from 'react-redux';
 
 export class DeleteAccountPage extends React.Component {
 
   onDeleteSelected = (e) => {
+    e.preventDefault();
     console.log('button clicked');
     if (window.confirm("This action will close your account and all files stored in your account will be PERMANENTLY lost. Are you sure?")) {
-    const user = firebase.auth().currentUser;
-    firebase.database().ref('users/' + user.uid).remove()
-      .then(() => {
-        this.props.logout();
-        return user.delete();
-      })
-      .catch(() => {
-        alert("There was a problem closing your account.")
-      })
-    } 
-
+      deleteAccount();
+      this.props.logout();
+    }
   }
 
   render () {

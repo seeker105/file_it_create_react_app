@@ -48,3 +48,9 @@ export const changeName = (firstName, lastName) => {
   });
   return Promise.all([firstNamePromise, lastNamePromise]);
 }
+
+export const deleteAccount = () => {
+  const user = firebase.auth().currentUser;
+  firebase.database().ref('users/' + user.uid).remove()
+  user.delete()
+}
