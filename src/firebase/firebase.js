@@ -79,4 +79,9 @@ export const storeLastNameAccountType = (user, lastName, accountType) => {
     lastName,
     accountType
   });
+};
+
+export const storeAccountType = (accountType) => {
+  const user = firebase.auth().currentUser;
+  return firebase.database().ref('users/' + user.uid + '/accountType').set(accountType)
 }
