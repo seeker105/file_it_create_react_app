@@ -90,3 +90,8 @@ export const storeNewPassword = (password) => {
   const user = firebase.auth().currentUser;
   return user.updatePassword(password)
 };
+
+export const storeNewEmail = (email) => {
+  const user = firebase.auth().currentUser;
+  return user.updateEmail(email)
+};

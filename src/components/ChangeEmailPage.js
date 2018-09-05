@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import firebase from '../firebase/firebase';
+import {storeNewEmail} from "../firebase/firebase";
 import {updateEmail} from '../actions/profile';
 
 export class ChangeEmailPage extends React.Component {
@@ -15,9 +15,8 @@ export class ChangeEmailPage extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     const email = document.getElementById('change-email-form-new-email-field').value;
-    const user = firebase.auth().currentUser;
     console.log(email);
-    user.updateEmail(email)
+    storeNewEmail(email)
       .then(() => {
         this.props.updateEmail(email);
         this.props.history.goBack();
