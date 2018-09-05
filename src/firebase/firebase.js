@@ -21,5 +21,8 @@ export const signInWithEmailAndPassword = (email, password) => {
   return firebase.auth().signInWithEmailAndPassword(email, password)
 };
 
-
-
+export const reauthenticate = (email, password) => {
+  const credential = firebase.auth.EmailAuthProvider.credential(email, password);
+  const user = firebase.auth().currentUser;
+  return user.reauthenticateAndRetrieveDataWithCredential(credential)
+}
