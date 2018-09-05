@@ -39,3 +39,12 @@ export const uploadFile = (file) => {
   filesRef.put(file);
   firebase.database().ref('users/' + user.uid + '/files').push(file.name);
 }
+
+export const changeName = (firstName, lastName) => {
+  const user = firebase.auth().currentUser;
+  const firstNamePromise = firebase.database().ref('users/' + user.uid + '/lastName').set(lastName);
+  const lastNamePromise = user.updateProfile({
+    displayName: firstName
+  });
+  return Promise.all([firstNamePromise, lastNamePromise]);
+}
