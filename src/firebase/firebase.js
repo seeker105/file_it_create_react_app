@@ -38,7 +38,7 @@ export const uploadFile = (file) => {
   const filesRef = storageRef.child('files/' + user.uid + '/' + file.name);
   filesRef.put(file);
   firebase.database().ref('users/' + user.uid + '/files').push(file.name);
-}
+};
 
 export const changeName = (firstName, lastName) => {
   const user = firebase.auth().currentUser;
@@ -47,10 +47,25 @@ export const changeName = (firstName, lastName) => {
     displayName: firstName
   });
   return Promise.all([firstNamePromise, lastNamePromise]);
-}
+};
 
 export const deleteAccount = () => {
   const user = firebase.auth().currentUser;
   firebase.database().ref('users/' + user.uid).remove()
   user.delete()
-}
+};
+
+export const getDownloadURL = (filename) => {
+  const user = firebase.auth().currentUser;
+  return firebase.storage().ref().child('files/' + user.uid + '/' + filename).getDownloadURL()
+};
+
+export const deleteFile = (filename) => {
+  const user = firebase.auth().currentUser;
+  return firebase.storage().ref().child('files/' + user.uid + '/' + filename).delete()
+};
+
+export const removeFileData = (fileId) => {
+  const user = firebase.auth().currentUser;
+  return firebase.database().ref('users/' + user.uid + '/files/' + fileId).remove()
+};

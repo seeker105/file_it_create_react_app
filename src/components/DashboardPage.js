@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import firebase from '../firebase/firebase';
+import {getDownloadURL, deleteFile, removeFileData} from '../firebase/firebase';
 import {saveAs} from 'file-saver/FileSaver';
 import {loadDashBoard, setFilesData} from '../actions/files';
 
@@ -13,14 +13,14 @@ export class DashboardPage extends React.Component {
       this.mainMessage = 'No files yet.'
     }
     this.user = props.user;
-    this.storageRef = firebase.storage().ref();
   }
 
   onFileClick = (e, fileDataObj) => {
     e.preventDefault();
 
     const filename = fileDataObj.filename;
-    this.storageRef.child('files/' + this.user.uid + '/' + filename).getDownloadURL()
+    // firebase.storage().ref().child('files/' + this.user.uid + '/' + filename).getDownloadURL()
+    getDownloadURL(filename)
       .then( (url) => {
         const xhr = new XMLHttpRequest();
         xhr.responseType = 'blob';
@@ -42,16 +42,17 @@ export class DashboardPage extends React.Component {
     console.log(e.target.name);
     console.log(e.target.value);
     const filename = e.target.name;
+    const fileId = e.target.value;
     if (window.confirm(filename + ' will be Deleted. This CANNOT be undone. Are you sure?')) {
 
       // first remove the file from storage
-      const storagePromise = this.storageRef.child('files/' + this.user.uid + '/' + filename).delete()
+      const storagePromise = deleteFile(filename)
       .catch((error) => {
         alert("There was a problem deleting the file: " + error.message);
       });
 
       // remove the fileDataObj from the list in the DB
-      const fileListPromise = firebase.database().ref('users/' + this.user.uid + '/files/' + e.target.value).remove()
+      const fileListPromise = removeFileData(fileId)
       .catch((error) => {
         alert("There was a problem removing the file reference: " + error.message);
       });
