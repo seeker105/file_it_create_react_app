@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import firebase from '../firebase/firebase';
+import {reauthenticate} from "../firebase/firebase";
 
 export default class ReauthorizationForm extends React.Component {
   constructor(props) {
@@ -16,9 +16,10 @@ export default class ReauthorizationForm extends React.Component {
     const email = document.getElementById('create_form_email_field').value;
     const password = document.getElementById('create_form_password_field').value;
 
-    const credential = firebase.auth.EmailAuthProvider.credential(email, password);
-    const user = firebase.auth().currentUser;
-    user.reauthenticateAndRetrieveDataWithCredential(credential)
+    // const credential = firebase.auth.EmailAuthProvider.credential(email, password);
+    // const user = firebase.auth().currentUser;
+    // user.reauthenticateAndRetrieveDataWithCredential(credential)
+    reauthenticate(email, password)
       .then(() => {
         this.props.history.goBack();
       })

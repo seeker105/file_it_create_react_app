@@ -2,13 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getPlanPrice, getPlanDetails} from '../utilities/planData';
 import {setAccountType} from "../actions/profile";
-import firebase from '../firebase/firebase';
+import {storeAccountType} from "../firebase/firebase";
 
 export class CheckoutPage extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.onSubmit(this.props.newAccountType);
-    firebase.database().ref('users/' + this.props.user.uid + '/accountType').set(this.props.newAccountType)
+    storeAccountType(this.props.newAccountType);
     console.log("submitted");
     this.props.history.push('/order-confirmation-page');
   }

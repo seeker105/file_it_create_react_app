@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import firebase from '../firebase/firebase';
 import {storeUserName} from '../actions/profile';
+import {changeName} from "../firebase/firebase";
 
 export class EditProfilePage extends React.Component {
   constructor(props) {
@@ -18,16 +18,12 @@ export class EditProfilePage extends React.Component {
 
     const firstName = document.getElementById('edit-profile-form-first-name-field').value;
     const lastName = document.getElementById('edit-profile-form-last-name-field').value;
-    const user = firebase.auth().currentUser;
 
     if (!firstName || !lastName) {
       this.setState(() => ({error: "First and last names are both required."}))
     } else {
-      user.updateProfile({
-        displayName: firstName
-      })
+      changeName(firstName, lastName)
         .then(() => {
-          firebase.database().ref('users/' + user.uid + '/lastName').set(lastName);
           this.props.storeUserName(firstName,lastName);
           this.props.history.push('/profile-page');
         })

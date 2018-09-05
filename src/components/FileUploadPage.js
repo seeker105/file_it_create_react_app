@@ -1,6 +1,6 @@
 import React from 'react';
-import firebase from '../firebase/firebase';
 import {Link} from 'react-router-dom';
+import {uploadFile} from "../firebase/firebase";
 import {loadDashBoard} from '../actions/files';
 import {connect} from 'react-redux';
 
@@ -11,14 +11,6 @@ export class FileUploadPage extends React.Component {
     this.state = {
       error: ""
     }
-  }
-
-  uploadFile = (file) => {
-    const user = this.props.user;
-    const storage = firebase.storage();
-    const storageRef = storage.ref();
-    const filesRef = storageRef.child('files/' + user.uid + '/' + file.name);
-    filesRef.put(file);
   }
 
   processOverwriteCheck = (file) => {
@@ -53,9 +45,8 @@ export class FileUploadPage extends React.Component {
       if (this.filenameIsFound(filesData, file.name)) {
         this.processOverwriteCheck(file);
       } else {
-        this.uploadFile(file);
-        // Add filename to filesData list
-        firebase.database().ref('users/' + user.uid + '/files').push(file.name);
+        uploadFile(file);
+
         loadDashBoard();
       }
     } else {
