@@ -73,7 +73,7 @@ export class DashboardPage extends React.Component {
       <div>
         <div className="page-header">
           <div className="content-container">
-            <h1 className="page-header__title">Files List</h1>
+            <h1 className="page-header__title">All Files List</h1>
             <div className="page-header__actions">
               <Link to="/file-upload-page" className="button">Upload Files</Link>
             </div>
