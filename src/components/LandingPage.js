@@ -28,6 +28,7 @@ export default class LandingPage extends React.Component {
             className="button">
             Sign In
           </button>
+          <p>*Note: This is a student project. It's fitness for any particular purpose is not guaranteed.</p>
         </div>
       </div>
     );
