@@ -1,3 +1,5 @@
+import {history} from '../App';
+import firebase from '../firebase/firebase';
 
 export const storeUserData = (firstName, lastName, email, accountType) => {
   return {
@@ -44,3 +46,15 @@ export const setAccountType = (accountType) => {
     accountType
   }
 };
+
+export const startUpdateEmail = (email) => {
+  console.log("hits start update")
+  return (dispatch) => {
+    const user = firebase.auth().currentUser;
+    return user.updateEmail(email)
+      .then(() => {
+        dispatch(updateEmail(email));
+        history.push('/profile-page')
+      })
+  }
+}

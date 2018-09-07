@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {storeNewEmail} from "../firebase/firebase";
-import {updateEmail} from '../actions/profile';
+import {updateEmail, startUpdateEmail} from '../actions/profile';
 
 export class ChangeEmailPage extends React.Component {
   constructor(props) {
@@ -16,11 +16,12 @@ export class ChangeEmailPage extends React.Component {
     e.preventDefault();
     const email = document.getElementById('change-email-form-new-email-field').value;
     console.log(email);
-    storeNewEmail(email)
-      .then(() => {
-        this.props.updateEmail(email);
-        this.props.history.goBack();
-      })
+    // storeNewEmail(email)
+    //   .then(() => {
+    //     this.props.updateEmail(email);
+    //     this.props.history.goBack();
+    //   })
+    this.props.startUpdateEmail(email)
       .catch((error) => {
         if (error.code === 'auth/requires-recent-login') {
           this.props.history.push('/reauthorization-form')
@@ -28,7 +29,17 @@ export class ChangeEmailPage extends React.Component {
           this.setState(() => ({error: error.message}));
         }
       })
-  }
+    // try {
+    //   this.props.startUpdateEmail(email)
+    // }
+    // catch(error) {
+    //   if (error.code === 'auth/requires-recent-login') {
+    //     this.props.history.push('/reauthorization-form')
+    //   } else {
+    //     this.setState(() => ({error: error.message}));
+    //   }
+    // }
+  };
 
   render () {
     return (
@@ -62,7 +73,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateEmail: (email) => dispatch(updateEmail(email))
+    updateEmail: (email) => dispatch(updateEmail(email)),
+    startUpdateEmail: (email) => dispatch(startUpdateEmail(email))
   }
 }
 
