@@ -37,7 +37,6 @@ export class FileUploadPage extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const user = this.props.user;
     const file = document.getElementById('file-upload-page-file-input').files[0];
 
     if (file) {
