@@ -56,7 +56,7 @@ test('should generate a updateEmail action', () => {
 });
 
 test('should generate a setOrderValues action', () => {
-  const newAccountType = "0";
+  const newAccountType = "2";
   const action = setOrderValues(newAccountType);
   expect(action).toEqual({
     type: 'SET_ORDER_VALUES',
@@ -66,7 +66,7 @@ test('should generate a setOrderValues action', () => {
 
 
 test('should generate a setAccountType action', () => {
-  const accountType = "0";
+  const accountType = "1";
   const action = setAccountType(accountType);
   expect(action).toEqual({
     type: 'SET_ACCOUNT_TYPE',
