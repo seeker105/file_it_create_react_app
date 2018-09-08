@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {uploadFile} from "../firebase/firebase";
-import {loadDashBoard} from '../actions/files';
+import {uploadFile, addFileNameToFilesData} from "../firebase/firebase";
+import {startLoadFilesData} from '../actions/files';
 import {connect} from 'react-redux';
+import {history} from "../App";
 
 export class FileUploadPage extends React.Component {
   constructor(props) {
@@ -16,13 +17,15 @@ export class FileUploadPage extends React.Component {
   processOverwriteCheck = (file) => {
     const overwrite = window.confirm(file.name + ' already exists. Overwrite?');
     if (overwrite) {
-      this.uploadFile(file); // without adding filename to list
-      loadDashBoard();
+      uploadFile(file); // without adding filename to list
+      this.props.startLoadFilesData().then(() => {
+        history.push('/dashboard');
+      })
     } else {
       // clear the file input and stay on FileUploadPage
       document.getElementById('file-upload-page-file-input').value = '';
     }
-  }
+  };
 
   filenameIsFound = (filesData, filename) => {
     let found = false;
@@ -32,7 +35,7 @@ export class FileUploadPage extends React.Component {
       }
     }
     return found;
-  }
+  };
 
 
   onSubmit = (e) => {
@@ -45,8 +48,11 @@ export class FileUploadPage extends React.Component {
         this.processOverwriteCheck(file);
       } else {
         uploadFile(file);
+        addFileNameToFilesData(file);
 
-        loadDashBoard();
+        this.props.startLoadFilesData().then(() => {
+          history.push('/dashboard');
+        })
       }
     } else {
       this.setState({
@@ -82,8 +88,14 @@ const mapStateToProps = (state) => {
     user: state.credential.user,
     filesData: state.filesData
   }
-}
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    startLoadFilesData: () => dispatch(startLoadFilesData())
+  }
+};
 
 
 // ConnectedFileUploadPage
-export default connect(mapStateToProps)(FileUploadPage);
+export default connect(mapStateToProps, mapDispatchToProps)(FileUploadPage);

@@ -3,7 +3,9 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {getDownloadURL, deleteFile, removeFileData} from '../firebase/firebase';
 import {saveAs} from 'file-saver/FileSaver';
-import {loadDashBoard, setFilesData} from '../actions/files';
+import {setFilesData, startLoadFilesData} from '../actions/files';
+import {history} from "../App";
+import store from "../store/configureStore";
 
 export class DashboardPage extends React.Component {
   constructor(props) {
@@ -64,7 +66,11 @@ export class DashboardPage extends React.Component {
 
       // After the Promises finish, reload the page to display correct data
       Promise.all([storagePromise, fileListPromise])
-      .then(loadDashBoard());
+        .then(() => {
+          this.props.startLoadFilesData().then(() => {
+            history.push('/dashboard');
+          })
+        })
     }
   };
 
@@ -122,7 +128,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setFilesData: (newFilesData) => dispatch(setFilesData(newFilesData))
+    setFilesData: (newFilesData) => dispatch(setFilesData(newFilesData)),
+    startLoadFilesData: () => dispatch(startLoadFilesData())
   }
 }
 

@@ -12,6 +12,7 @@ export const setFilesData = (filesData) => {
 export const startLoadFilesData = () => {
   return (dispatch, getState) => {
     // const user = getState().credential.user;
+    history.push('/loading-page');
     const user = firebase.auth().currentUser;
     return firebase.database().ref('users/' + user.uid + '/files/').once('value')
       .then((snapshot) => {
@@ -25,11 +26,4 @@ export const startLoadFilesData = () => {
         dispatch(setFilesData(filesData));
       })
   }
-};
-
-export const loadDashBoard = () => {
-  history.push('/loading-page');
-  store.dispatch(startLoadFilesData()).then(() => {
-    history.push('/dashboard');
-  })
 };
