@@ -37,8 +37,12 @@ export const uploadFile = (file) => {
   const storageRef = storage.ref();
   const filesRef = storageRef.child('files/' + user.uid + '/' + file.name);
   filesRef.put(file);
-  firebase.database().ref('users/' + user.uid + '/files').push(file.name);
 };
+
+export const addFileNameToFilesData = (file) => {
+  const user = firebase.auth().currentUser;
+  firebase.database().ref('users/' + user.uid + '/files').push(file.name);
+}
 
 export const changeName = (firstName, lastName) => {
   const user = firebase.auth().currentUser;
