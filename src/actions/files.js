@@ -27,9 +27,3 @@ export const startLoadFilesData = () => {
       })
   }
 };
-
-export const loadDashBoard = () => {
-  store.dispatch(startLoadFilesData()).then(() => {
-    history.push('/dashboard');
-  })
-};

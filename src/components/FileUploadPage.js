@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {uploadFile, addFileNameToFilesData} from "../firebase/firebase";
-import {loadDashBoard, startLoadFilesData} from '../actions/files';
+import {startLoadFilesData} from '../actions/files';
 import {connect} from 'react-redux';
 import {history} from "../App";
 

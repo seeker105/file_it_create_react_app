@@ -30,7 +30,7 @@ const logIn = (firstName, lastName, email, accountType) => {
       history.location.pathname === '/dashboard' ||
       history.location.pathname === '/create-account' ||
       history.location.pathname === '/sign-in-form') {
-    console.log("hits loadDashBoard");
+    console.log("hits dashboard transition");
     store.dispatch(startLoadFilesData()).then(() => {
       history.push('/dashboard');
     })
