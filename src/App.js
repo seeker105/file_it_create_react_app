@@ -8,7 +8,7 @@ import {logoutGenerator} from './actions/auth';
 import {storeUserData} from './actions/profile';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import LoadingPage from './components/LoadingPage';
-import {loadDashBoard} from './actions/files';
+import {startLoadFilesData} from './actions/files';
 
 export const history = createHistory();
 
@@ -31,7 +31,9 @@ const logIn = (firstName, lastName, email, accountType) => {
       history.location.pathname === '/create-account' ||
       history.location.pathname === '/sign-in-form') {
     console.log("hits loadDashBoard");
-    loadDashBoard();
+    store.dispatch(startLoadFilesData()).then(() => {
+      history.push('/dashboard');
+    })
   }
   console.log("logged in: ", store.getState());
 }
