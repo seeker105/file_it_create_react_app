@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {loadDashBoard} from '../actions/files';
+import {startLoadFilesData} from '../actions/files';
 import {databaseSignOut} from "../firebase/firebase";
 import {connect} from 'react-redux';
+import {history} from "../App";
 
 export class Header extends React.Component {
   onLogoutClick = (e) => {
@@ -12,7 +13,9 @@ export class Header extends React.Component {
 
   onDashboardNavigation = (e) => {
     e.preventDefault();
-    loadDashBoard();
+    this.props.startLoadFilesData().then(() => {
+      history.push('/dashboard');
+    })
   };
 
   render () {
@@ -47,7 +50,13 @@ const mapStateToProps = (state) => {
   return {
     firstName: state.firstName
   };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    startLoadFilesData: () => dispatch(startLoadFilesData())
+  }
 }
 
 // ConnectedHeader
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
