@@ -12,7 +12,6 @@ import ChangeEmailPage from '../components/ChangeEmailPage';
 import EditProfilePage from '../components/EditProfilePage';
 import ReauthorizationForm from '../components/ReauthorizationForm';
 import DeleteAccountPage from '../components/DeleteAccountPage';
-import FileUploadPage from '../components/FileUploadPage';
 import LoadingPage from '../components/LoadingPage';
 import AccountTypeSelectionPage from '../components/AccountTypeSelectionPage';
 import CheckoutPage from '../components/CheckoutPage';
@@ -33,7 +32,6 @@ const AppRouter = (props) => (
         <PrivateRoute path="/edit-profile-page" component={EditProfilePage} />
         <PrivateRoute path="/reauthorization-form" component={ReauthorizationForm} />
         <PrivateRoute path="/delete-account-page" component={DeleteAccountPage} />
-        <PrivateRoute path="/file-upload-page" component={FileUploadPage} />
         <PrivateRoute path="/select-account-type" component={AccountTypeSelectionPage} />
         <PrivateRoute path="/checkout" component={CheckoutPage} />
         <PrivateRoute path="/order-confirmation-page" component={OrderConfirmationPage} />
