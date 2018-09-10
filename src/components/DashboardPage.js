@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
-import {getDownloadURL, deleteFile, removeFileData} from '../firebase/firebase';
+import {getDownloadURL, deleteFile, removeFileData, uploadFile,
+        addFileNameToFilesData} from '../firebase/firebase';
 import {saveAs} from 'file-saver/FileSaver';
 import {setFilesData, startLoadFilesData} from '../actions/files';
 import {history} from "../App";
@@ -14,7 +14,56 @@ export class DashboardPage extends React.Component {
       this.mainMessage = 'No files yet.'
     }
     this.user = props.user;
+    this.state = {
+      error: ""
+    }
   }
+
+  processOverwriteCheck = (file) => {
+    const overwrite = window.confirm(file.name + ' already exists. Overwrite?');
+    if (overwrite) {
+      uploadFile(file); // without adding filename to list
+      this.props.startLoadFilesData().then(() => {
+        history.push('/dashboard');
+      })
+    } else {
+      // clear the file input and stay on FileUploadPage
+      document.getElementById('file-upload-page-file-input').value = '';
+    }
+  };
+
+  filenameIsFound = (filesData, filename) => {
+    let found = false;
+    for (let i = 0; i < filesData.length; i++) {
+      if (filesData[i].filename === filename) {
+        found = true;
+      }
+    }
+    return found;
+  };
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    const file = document.getElementById('file-upload-page-file-input').files[0];
+
+    if (file) {
+      const filesData = this.props.filesData;
+      if (this.filenameIsFound(filesData, file.name)) {
+        this.processOverwriteCheck(file);
+      } else {
+        uploadFile(file);
+        addFileNameToFilesData(file);
+
+        this.props.startLoadFilesData().then(() => {
+          history.push('/dashboard');
+        })
+      }
+    } else {
+      this.setState({
+        error: "Valid file entry is required"
+      })
+    }
+  };
 
   onFileClick = (e, fileDataObj) => {
     e.preventDefault();
@@ -37,11 +86,7 @@ export class DashboardPage extends React.Component {
       })
   };
 
-
-
   onDeleteClick = (e) => {
-    console.log(e.target.name);
-    console.log(e.target.value);
     const filename = e.target.name;
     const fileId = e.target.value;
     if (window.confirm(filename + ' will be Deleted. This CANNOT be undone. Are you sure?')) {
@@ -60,7 +105,6 @@ export class DashboardPage extends React.Component {
 
       // remove the fileDataObj from Redux store
       const newFilesData = this.filesData.filter(fileNameObj => fileNameObj.id !== e.target.value);
-      console.log("newFilesData = ", newFilesData);
       this.props.setFilesData(newFilesData);
 
       // After the Promises finish, reload the page to display correct data
@@ -79,9 +123,12 @@ export class DashboardPage extends React.Component {
         <div className="page-header">
           <div className="content-container">
             <h1 className="page-header__title">All Files List</h1>
-            <div className="page-header__actions">
-              <Link to="/file-upload-page" className="button">Upload Files</Link>
-            </div>
+            <form onSubmit={this.onSubmit}>
+              {this.state.error && <p className="form-error">{this.state.error}</p>}
+              <p><label>Choose File to upload</label></p>
+              <p><input type="file" id="file-upload-page-file-input" /></p>
+              <button className="button">Upload File</button>
+            </form>
           </div>
         </div>
         <div className="content-container">
@@ -93,7 +140,7 @@ export class DashboardPage extends React.Component {
                   <a href="/" onClick={(e) => this.onFileClick(e, fileDataObj)} className="file-link">
                     <div className="file">
                       <div className="file-icon">
-                        <ion-icon name="document"></ion-icon>
+                        <ion-icon name="document" />
                       </div>
                       <div className="file-name">
                         {fileDataObj.filename}
@@ -130,7 +177,7 @@ const mapDispatchToProps = (dispatch) => {
     setFilesData: (newFilesData) => dispatch(setFilesData(newFilesData)),
     startLoadFilesData: () => dispatch(startLoadFilesData())
   }
-}
+};
 
 // ConnectedDashBoardPage
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage)
