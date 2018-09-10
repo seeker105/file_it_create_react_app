@@ -1,6 +1,5 @@
 import {history} from '../App';
 import firebase from '../firebase/firebase';
-import store from '../store/configureStore';
 
 export const setFilesData = (filesData) => {
   return {

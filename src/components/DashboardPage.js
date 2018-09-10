@@ -5,7 +5,6 @@ import {getDownloadURL, deleteFile, removeFileData} from '../firebase/firebase';
 import {saveAs} from 'file-saver/FileSaver';
 import {setFilesData, startLoadFilesData} from '../actions/files';
 import {history} from "../App";
-import store from "../store/configureStore";
 
 export class DashboardPage extends React.Component {
   constructor(props) {
