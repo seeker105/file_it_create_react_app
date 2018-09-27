@@ -15,7 +15,8 @@ export class DashboardPage extends React.Component {
     }
     this.user = props.user;
     this.state = {
-      error: ""
+      error: "",
+      filesData: props.filesData
     }
   }
 
@@ -47,16 +48,25 @@ export class DashboardPage extends React.Component {
     const file = document.getElementById('file-upload-page-file-input').files[0];
 
     if (file) {
-      const filesData = this.props.filesData;
+      const filesData = this.state.filesData;
       if (this.filenameIsFound(filesData, file.name)) {
         this.processOverwriteCheck(file);
       } else {
         uploadFile(file);
-        addFileNameToFilesData(file);
-
-        this.props.startLoadFilesData().then(() => {
-          history.push('/dashboard');
-        })
+        addFileNameToFilesData(file)
+          .then((ref) => {
+            const newDataObj = {
+              id: ref.key,
+              filename: file.name
+            };
+            const newFilesData = this.state.filesData.concat([newDataObj]);
+            // Add the filename to the state to update display
+            this.setState({
+              filesData: newFilesData
+            });
+            // Add the filename to the Redux store
+            this.props.setFilesData(newFilesData);
+          });
       }
     } else {
       this.setState({
@@ -69,12 +79,11 @@ export class DashboardPage extends React.Component {
     e.preventDefault();
 
     const filename = fileDataObj.filename;
-    // firebase.storage().ref().child('files/' + this.user.uid + '/' + filename).getDownloadURL()
     getDownloadURL(filename)
       .then( (url) => {
         const xhr = new XMLHttpRequest();
         xhr.responseType = 'blob';
-        xhr.onload = function(event) {
+        xhr.onload = function() {
           const blob = xhr.response;
           saveAs(blob, filename)
         };
@@ -107,11 +116,11 @@ export class DashboardPage extends React.Component {
       const newFilesData = this.filesData.filter(fileNameObj => fileNameObj.id !== e.target.value);
       this.props.setFilesData(newFilesData);
 
-      // After the Promises finish, reload the page to display correct data
+      // After the Promises finish, change the state to display correct data
       Promise.all([storagePromise, fileListPromise])
         .then(() => {
-          this.props.startLoadFilesData().then(() => {
-            history.push('/dashboard');
+          this.setState({
+            filesData: newFilesData
           })
         })
     }
@@ -134,7 +143,7 @@ export class DashboardPage extends React.Component {
         <div className="content-container">
           {this.mainMessage && <p>{this.mainMessage}</p>}
           <div className="files-list">
-            {this.props.filesData.map( (fileDataObj, x) => {
+            {this.state.filesData.map( (fileDataObj) => {
               return (
                 <div className="file-control" key={fileDataObj.id}>
                   <a href="/" onClick={(e) => this.onFileClick(e, fileDataObj)} className="file-link">
