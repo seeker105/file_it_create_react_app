@@ -15,7 +15,6 @@ export class FileControl extends React.Component {
     if (props.uploadTask) {
       console.log(this.filename + "has the upload task")
     }
-
   }
 
   onDeleteClick = (e) => {

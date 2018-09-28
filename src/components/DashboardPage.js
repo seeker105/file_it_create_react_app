@@ -14,7 +14,8 @@ export class DashboardPage extends React.Component {
     }
     this.user = props.user;
     this.state = {
-      error: ""
+      error: "",
+      filesData: props.filesData
     };
     this.uploadId = '';
     this.uploadTask = null;
@@ -59,6 +60,7 @@ export class DashboardPage extends React.Component {
         this.props.startLoadFilesData().then(() => {
           history.push('/dashboard');
         })
+
       }
     } else {
       this.setState({
@@ -86,7 +88,7 @@ export class DashboardPage extends React.Component {
         <div className="content-container">
           {this.mainMessage && <p>{this.mainMessage}</p>}
           <div className="files-list">
-            {this.props.filesData.map( (fileDataObj, x) => {
+            {this.state.filesData.map( (fileDataObj, x) => {
               if (this.uploadId && this.uploadId === fileDataObj.filename) {
                 return <FileControl
                   fileDataObj={fileDataObj}
