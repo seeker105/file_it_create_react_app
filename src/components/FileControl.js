@@ -12,11 +12,13 @@ export class FileControl extends React.Component {
 
     this.filename = props.fileDataObj.filename;
     this.fileId = props.fileDataObj.id;
+    if (props.uploadTask) {
+      console.log(this.filename + "has the upload task")
+    }
+
   }
 
   onDeleteClick = (e) => {
-    // const filename = e.target.name;
-    // const fileId = e.target.value;
     if (window.confirm(this.filename + ' will be Deleted. This CANNOT be undone. Are you sure?')) {
 
       // first remove the file from storage

@@ -36,7 +36,12 @@ export const uploadFile = (file) => {
   const storage = firebase.storage();
   const storageRef = storage.ref();
   const filesRef = storageRef.child('files/' + user.uid + '/' + file.name);
-  filesRef.put(file);
+  const uploadTask = filesRef.put(file);
+  uploadTask.on('state_changed', (snapshot) => {
+    let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log('Upload is ' + progress + '% done')
+  });
+  return uploadTask;
 };
 
 export const addFileNameToFilesData = (file) => {

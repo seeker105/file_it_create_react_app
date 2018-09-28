@@ -15,13 +15,15 @@ export class DashboardPage extends React.Component {
     this.user = props.user;
     this.state = {
       error: ""
-    }
+    };
+    this.uploadId = '';
+    this.uploadTask = null;
   }
 
   processOverwriteCheck = (file) => {
     const overwrite = window.confirm(file.name + ' already exists. Overwrite?');
     if (overwrite) {
-      uploadFile(file); // without adding filename to list
+      this.uploadTask = uploadFile(file); // without adding filename to list
       this.props.startLoadFilesData().then(() => {
         history.push('/dashboard');
       })
@@ -50,7 +52,8 @@ export class DashboardPage extends React.Component {
       if (this.filenameIsFound(filesData, file.name)) {
         this.processOverwriteCheck(file);
       } else {
-        uploadFile(file);
+        this.uploadTask = uploadFile(file);
+        this.uploadId = file.name;
         addFileNameToFilesData(file);
 
         this.props.startLoadFilesData().then(() => {
@@ -84,9 +87,18 @@ export class DashboardPage extends React.Component {
           {this.mainMessage && <p>{this.mainMessage}</p>}
           <div className="files-list">
             {this.props.filesData.map( (fileDataObj, x) => {
-              return (
-                <FileControl fileDataObj={fileDataObj} key={fileDataObj.id}/>
-              )
+              if (this.uploadId && this.uploadId === fileDataObj.filename) {
+                return <FileControl
+                  fileDataObj={fileDataObj}
+                  key={fileDataObj.id}
+                  uploadTask={this.uploadTask}
+                />
+              } else {
+                return <FileControl
+                  fileDataObj={fileDataObj}
+                  key={fileDataObj.id}
+                />
+              }
             })}
           </div>
         </div>
