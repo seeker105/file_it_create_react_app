@@ -13,7 +13,11 @@ export class FileControl extends React.Component {
     this.filename = props.fileDataObj.filename;
     this.fileId = props.fileDataObj.id;
     if (props.uploadTask) {
-      console.log(this.filename + "has the upload task")
+      console.log(this.filename + ' has an upload task');
+      props.uploadTask.on('state_changed', (snapshot) => {
+        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(this.filename + ' Upload is ' + progress + '% done')
+      });
     }
   }
 

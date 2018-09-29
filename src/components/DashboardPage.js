@@ -46,7 +46,8 @@ export class DashboardPage extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const file = document.getElementById('file-upload-page-file-input').files[0];
+    const input = document.getElementById('file-upload-page-file-input');
+    const file = input.files[0];
 
     if (file) {
       const filesData = this.props.filesData;
@@ -55,11 +56,26 @@ export class DashboardPage extends React.Component {
       } else {
         this.uploadTask = uploadFile(file);
         this.uploadId = file.name;
-        addFileNameToFilesData(file);
+        addFileNameToFilesData(file)
+          .then((ref) => {
+            console.log(ref.key);
+            const newFileDataObj = {
+              id: ref.key,
+              filename: file.name
+            };
+            const newFilesData = this.state.filesData.concat([newFileDataObj]);
+            console.log(newFilesData);
+            this.props.setFilesData(newFilesData);
+            this.setState({
+              filesData: newFilesData,
+              error: ''
+            });
+            input.value = '';
+          });
 
-        this.props.startLoadFilesData().then(() => {
-          history.push('/dashboard');
-        })
+        // this.props.startLoadFilesData().then(() => {
+        //   history.push('/dashboard');
+        // })
 
       }
     } else {
