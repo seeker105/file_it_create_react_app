@@ -12,11 +12,28 @@ export class FileControl extends React.Component {
 
     this.filename = props.fileDataObj.filename;
     this.fileId = props.fileDataObj.id;
+    this.state = {
+      progressBarVisibility: 'hide',
+      progress: 0.0,
+      deleteButtonDisabled: 'delete-button',
+      fileControlDisabled: 'file-link',
+      disabled: false
+    };
+
+
     if (props.uploadTask) {
       console.log(this.filename + ' has an upload task');
       props.uploadTask.on('state_changed', (snapshot) => {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(this.filename + ' Upload is ' + progress + '% done')
+        console.log(this.filename + ' Upload is ' + progress + '% done');
+        console.log('State is ' + snapshot.state);
+        this.setState({
+          progressBarVisibility: progress < 100 ? 'show' : 'hide',
+          progress,
+          deleteButtonDisabled: progress < 100 ? 'disable-delete-button' : 'delete-button',
+          fileControlDisabled: progress < 100 ? 'disable-file-link' : 'file-link',
+          disabled: progress < 100
+        })
       });
     }
   }
@@ -91,6 +108,11 @@ export class FileControl extends React.Component {
           className="delete-button">
           Delete File
         </button>
+        <progress
+          max={100}
+          value={this.state.progress}
+          className={this.state.progressBarVisibility}
+        />
       </div>
     )
   }
