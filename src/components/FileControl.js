@@ -15,8 +15,8 @@ export class FileControl extends React.Component {
     this.state = {
       progressBarVisibility: 'hide',
       progress: 0.0,
-      deleteButtonDisabled: 'delete-button',
-      fileControlDisabled: 'file-link',
+      deleteButtonStatus: 'delete-button',
+      fileControlStatus: 'file-link',
       disabled: false
     };
 
@@ -30,8 +30,8 @@ export class FileControl extends React.Component {
         this.setState({
           progressBarVisibility: progress < 100 ? 'show' : 'hide',
           progress,
-          deleteButtonDisabled: progress < 100 ? 'disable-delete-button' : 'delete-button',
-          fileControlDisabled: progress < 100 ? 'disable-file-link' : 'file-link',
+          deleteButtonStatus: progress < 100 ? 'disable-delete-button' : 'delete-button',
+          fileControlStatus: progress < 100 ? 'disable-file-link' : 'file-link',
           disabled: progress < 100
         })
       });
@@ -70,27 +70,33 @@ export class FileControl extends React.Component {
   onFileClick = (e, fileDataObj) => {
     e.preventDefault();
 
-    const filename = fileDataObj.filename;
-    getDownloadURL(filename)
-      .then( (url) => {
-        const xhr = new XMLHttpRequest();
-        xhr.responseType = 'blob';
-        xhr.onload = function(event) {
-          const blob = xhr.response;
-          saveAs(blob, filename)
-        };
-        xhr.open('GET', url);
-        xhr.send();
-      })
-      .catch( (error) => {
-        alert("An error occurred in the download/n" + error.message)
-      })
+    if (!this.state.disabled) {
+      const filename = fileDataObj.filename;
+      getDownloadURL(filename)
+        .then( (url) => {
+          const xhr = new XMLHttpRequest();
+          xhr.responseType = 'blob';
+          xhr.onload = function(event) {
+            const blob = xhr.response;
+            saveAs(blob, filename)
+          };
+          xhr.open('GET', url);
+          xhr.send();
+        })
+        .catch( (error) => {
+          alert("An error occurred in the download/n" + error.message)
+        })
+    }
   };
 
   render () {
     return (
       <div className="file-control" >
-        <a href="/" onClick={(e) => this.onFileClick(e, this.props.fileDataObj)} className="file-link">
+        <a
+          href="/"
+          onClick={(e) => this.onFileClick(e, this.props.fileDataObj)}
+          className={this.state.fileControlStatus}
+        >
           <div className="file">
             <div className="file-icon">
               <ion-icon name="document" />
@@ -105,7 +111,9 @@ export class FileControl extends React.Component {
           name={this.filename}
           onClick={this.onDeleteClick}
           value={this.fileId}
-          className="delete-button">
+          className={this.state.deleteButtonStatus}
+          disabled={this.state.disabled}
+        >
           Delete File
         </button>
         <progress
