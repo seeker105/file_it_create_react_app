@@ -36,3 +36,12 @@
   background: red;
   color: white;
 }
+
+.disable-delete-button {
+  background: gray;
+  color: black;
+}
+
+.disable-file-link {
+  color: gray;
+}

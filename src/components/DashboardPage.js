@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getDownloadURL, deleteFile, removeFileData, uploadFile,
-        addFileNameToFilesData} from '../firebase/firebase';
-import {saveAs} from 'file-saver/FileSaver';
+import {uploadFile, addFileNameToFilesData} from '../firebase/firebase';
 import {setFilesData, startLoadFilesData} from '../actions/files';
+import FileControl from './FileControl';
 import {history} from "../App";
 
 export class DashboardPage extends React.Component {
@@ -15,14 +14,17 @@ export class DashboardPage extends React.Component {
     }
     this.user = props.user;
     this.state = {
-      error: ""
-    }
+      error: "",
+      filesData: props.filesData
+    };
+    this.uploadId = '';
+    this.uploadTask = null;
   }
 
   processOverwriteCheck = (file) => {
     const overwrite = window.confirm(file.name + ' already exists. Overwrite?');
     if (overwrite) {
-      uploadFile(file); // without adding filename to list
+      this.uploadTask = uploadFile(file); // without adding filename to list
       this.props.startLoadFilesData().then(() => {
         history.push('/dashboard');
       })
@@ -44,19 +46,37 @@ export class DashboardPage extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const file = document.getElementById('file-upload-page-file-input').files[0];
+    const input = document.getElementById('file-upload-page-file-input');
+    const file = input.files[0];
 
     if (file) {
       const filesData = this.props.filesData;
       if (this.filenameIsFound(filesData, file.name)) {
         this.processOverwriteCheck(file);
       } else {
-        uploadFile(file);
-        addFileNameToFilesData(file);
+        this.uploadTask = uploadFile(file);
+        this.uploadId = file.name;
+        addFileNameToFilesData(file)
+          .then((ref) => {
+            console.log(ref.key);
+            const newFileDataObj = {
+              id: ref.key,
+              filename: file.name
+            };
+            const newFilesData = this.state.filesData.concat([newFileDataObj]);
+            console.log(newFilesData);
+            this.props.setFilesData(newFilesData);
+            this.setState({
+              filesData: newFilesData,
+              error: ''
+            });
+            input.value = '';
+          });
 
-        this.props.startLoadFilesData().then(() => {
-          history.push('/dashboard');
-        })
+        // this.props.startLoadFilesData().then(() => {
+        //   history.push('/dashboard');
+        // })
+
       }
     } else {
       this.setState({
@@ -65,57 +85,7 @@ export class DashboardPage extends React.Component {
     }
   };
 
-  onFileClick = (e, fileDataObj) => {
-    e.preventDefault();
 
-    const filename = fileDataObj.filename;
-    // firebase.storage().ref().child('files/' + this.user.uid + '/' + filename).getDownloadURL()
-    getDownloadURL(filename)
-      .then( (url) => {
-        const xhr = new XMLHttpRequest();
-        xhr.responseType = 'blob';
-        xhr.onload = function(event) {
-          const blob = xhr.response;
-          saveAs(blob, filename)
-        };
-        xhr.open('GET', url);
-        xhr.send();
-      })
-      .catch( (error) => {
-        alert("An error occurred in the download/n" + error.message)
-      })
-  };
-
-  onDeleteClick = (e) => {
-    const filename = e.target.name;
-    const fileId = e.target.value;
-    if (window.confirm(filename + ' will be Deleted. This CANNOT be undone. Are you sure?')) {
-
-      // first remove the file from storage
-      const storagePromise = deleteFile(filename)
-      .catch((error) => {
-        alert("There was a problem deleting the file: " + error.message);
-      });
-
-      // remove the fileDataObj from the list in the DB
-      const fileListPromise = removeFileData(fileId)
-      .catch((error) => {
-        alert("There was a problem removing the file reference: " + error.message);
-      });
-
-      // remove the fileDataObj from Redux store
-      const newFilesData = this.filesData.filter(fileNameObj => fileNameObj.id !== e.target.value);
-      this.props.setFilesData(newFilesData);
-
-      // After the Promises finish, reload the page to display correct data
-      Promise.all([storagePromise, fileListPromise])
-        .then(() => {
-          this.props.startLoadFilesData().then(() => {
-            history.push('/dashboard');
-          })
-        })
-    }
-  };
 
   render () {
     return (
@@ -134,29 +104,19 @@ export class DashboardPage extends React.Component {
         <div className="content-container">
           {this.mainMessage && <p>{this.mainMessage}</p>}
           <div className="files-list">
-            {this.props.filesData.map( (fileDataObj, x) => {
-              return (
-                <div className="file-control" key={fileDataObj.id}>
-                  <a href="/" onClick={(e) => this.onFileClick(e, fileDataObj)} className="file-link">
-                    <div className="file">
-                      <div className="file-icon">
-                        <ion-icon name="document" />
-                      </div>
-                      <div className="file-name">
-                        {fileDataObj.filename}
-                      </div>
-                    </div>
-                  </a>
-                  <button
-                    type="button"
-                    name={fileDataObj.filename}
-                    onClick={this.onDeleteClick}
-                    value={fileDataObj.id}
-                    className="delete-button">
-                    Delete File
-                  </button>
-                </div>
-              )
+            {this.state.filesData.map( (fileDataObj, x) => {
+              if (this.uploadId && this.uploadId === fileDataObj.filename) {
+                return <FileControl
+                  fileDataObj={fileDataObj}
+                  key={fileDataObj.id}
+                  uploadTask={this.uploadTask}
+                />
+              } else {
+                return <FileControl
+                  fileDataObj={fileDataObj}
+                  key={fileDataObj.id}
+                />
+              }
             })}
           </div>
         </div>
