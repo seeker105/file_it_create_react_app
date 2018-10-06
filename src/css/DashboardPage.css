@@ -45,3 +45,14 @@
 .disable-file-link {
   color: gray;
 }
+
+.file-input-button {
+  border: none;
+  padding: 0;
+  margin: .2rem .2rem .2rem 0;
+  font-size: 1.1rem;
+  font-weight: 300;
+  text-decoration: none;
+  display: inline-block;
+  line-height: 1;
+}

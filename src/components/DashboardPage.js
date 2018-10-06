@@ -96,7 +96,7 @@ export class DashboardPage extends React.Component {
             <form onSubmit={this.onSubmit}>
               {this.state.error && <p className="form-error">{this.state.error}</p>}
               <p><label>Choose File to upload</label></p>
-              <p><input type="file" id="file-upload-page-file-input" /></p>
+              <p><input type="file" className="file-input-button" id="file-upload-page-file-input" /></p>
               <button className="button">Upload File</button>
             </form>
           </div>
