@@ -18,28 +18,24 @@ export class CreateAccountForm extends React.Component {
   }
 
   onFirstNameChange = (e) => {
-    console.log(e.target.value);
     this.setState({
       firstName: e.target.value
     })
   };
 
   onLastNameChange = (e) => {
-    console.log(e.target.value);
     this.setState({
       lastName: e.target.value
     })
   };
 
   onEmailChange = (e) => {
-    console.log(e.target.value);
     this.setState({
       email: e.target.value
     })
   };
 
   onPasswordChange = (e) => {
-    console.log(e.target.value);
     this.setState({
       password: e.target.value
     })
@@ -47,10 +43,6 @@ export class CreateAccountForm extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    // const firstName = document.getElementById('create_form_first_name_field').value;
-    // const email = document.getElementById('create_form_email_field').value;
-    // const password = document.getElementById('create_form_password_field').value;
-    // const lastName = document.getElementById('create_form_last_name_field').value;
     const firstName = this.state.firstName;
     const lastName = this.state.lastName;
     const email = this.state.email;
