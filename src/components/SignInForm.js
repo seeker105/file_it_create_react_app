@@ -8,23 +8,43 @@ export class SignInForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: ''
+      error: '',
+      email: '',
+      password: ''
     }
   }
+
+  onEmailChange = (e) => {
+    this.setState({
+      email: e.target.value
+    })
+  };
+
+  onPasswordChange = (e) => {
+    this.setState({
+      password: e.target.value
+    })
+  };
 
   onSubmit = (e) => {
     e.preventDefault();
 
-    const email = document.getElementById('create_form_email_field').value;
-    const password = document.getElementById('create_form_password_field').value;
+    // const email = document.getElementById('create_form_email_field').value;
+    // const password = document.getElementById('create_form_password_field').value;
 
-    signInWithEmailAndPassword(email, password)
-      .then((credential) => {
-        this.props.storeUserCredential(credential);
-      })
-      .catch((error) => {
-        this.setState(() => ({error: error.message}))
-      })
+    const email = this.state.email;
+    const password = this.state.password;
+    if (!password) {
+      this.setState(() => ({error: 'Password is required'}))
+    } else {
+      signInWithEmailAndPassword(email, password)
+        .then((credential) => {
+          this.props.storeUserCredential(credential);
+        })
+        .catch((error) => {
+          this.setState(() => ({error: error.message}))
+        })
+    }
   };
 
   render () {
@@ -40,9 +60,23 @@ export class SignInForm extends React.Component {
             <div className="form-container">
               {this.state.error && <p className="form-error">{this.state.error}</p>}
               <label className="label-style">Email</label>
-              <input type="text" placeholder="Email" id="create_form_email_field" className="input-style"/>
+              <input
+                type="text"
+                placeholder="Email"
+                id="sign_in_form_email_field"
+                className="input-style"
+                onChange={this.onEmailChange}
+                value={this.state.email}
+              />
               <label className="label-style">Password</label>
-              <input type="text" placeholder="Password" id="create_form_password_field" className="input-style"/>
+              <input
+                type="text"
+                placeholder="Password"
+                id="sign_in_form_password_field"
+                className="input-style"
+                onChange={this.onPasswordChange}
+                value={this.state.password}
+              />
             </div>
             <button className="button">Log In</button>
           </form>
